@@ -1,0 +1,16 @@
+import React, { ReactNode } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+interface ScreenProps {
+	children: ReactNode;
+}
+
+const Screen = ({ children }: ScreenProps) => {
+	return (
+		<SafeAreaView className="flex-1 pt-[160px] px-7">
+			{children}
+		</SafeAreaView>
+	);
+};
+
+export default Screen;
