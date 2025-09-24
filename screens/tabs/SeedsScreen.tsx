@@ -8,7 +8,7 @@ import React from "react";
 import { FlatList, ListRenderItem } from "react-native";
 
 const SeedsScreen = () => {
-	const renderShopCards: ListRenderItem<PlantItemType> = ({ item }) => (
+	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (
 		<SeedsCard item={item} />
 	);
 
@@ -21,7 +21,7 @@ const SeedsScreen = () => {
 			<FlatList
 				data={PLANT_ITEMS}
 				keyExtractor={(item) => item.id.toString()}
-				renderItem={renderShopCards}
+				renderItem={renderSeedsCard}
 				contentContainerStyle={{ flex: 1 }}
 			/>
 		</Screen>

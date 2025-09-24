@@ -1,3 +1,4 @@
+import AddPlantBottomSheet from "@/components/farm/AddPlantBottomsheet";
 import FarmCard from "@/components/farm/FarmCard";
 import RemovePlantBottomSheet from "@/components/farm/RemovePlantBottomsheet";
 import HeaderContainer from "@/components/HeaderContainer";
@@ -12,9 +13,14 @@ import { FlatList, ListRenderItem } from "react-native";
 
 const FarmScreen = () => {
 	const remove_bottom_sheet_ref = useRef<BottomSheetModal>(null);
+	const add_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 
-	const handlePresentBuyModalPress = useCallback(() => {
+	const handlePresentRemoveModalPress = useCallback(() => {
 		remove_bottom_sheet_ref.current?.present();
+	}, []);
+
+	const handlePresentAddModalPress = useCallback(() => {
+		add_bottom_sheet_ref.current?.present();
 	}, []);
 
 	const handleRemovePress = () => {
@@ -22,8 +28,13 @@ const FarmScreen = () => {
 		remove_bottom_sheet_ref.current?.dismiss();
 	};
 
+	const handleAddPlantPress = () => {
+		console.log("add plant pressed");
+		add_bottom_sheet_ref.current?.dismiss();
+	};
+
 	const renderFarmCards: ListRenderItem<PlantItemType> = ({ item }) => (
-		<FarmCard item={item} onRemovePress={handlePresentBuyModalPress} />
+		<FarmCard item={item} onRemovePress={handlePresentRemoveModalPress} />
 	);
 	return (
 		<Screen>
@@ -36,12 +47,19 @@ const FarmScreen = () => {
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderFarmCards}
 				contentContainerStyle={{ flex: 1 }}
-				ListFooterComponent={AddPlantCard}
+				ListFooterComponent={
+					<AddPlantCard onPress={handlePresentAddModalPress} />
+				}
 			/>
 
 			<RemovePlantBottomSheet
 				onRemovePress={handleRemovePress}
 				ref={remove_bottom_sheet_ref}
+			/>
+
+			<AddPlantBottomSheet
+				onAddPlantPress={handleAddPlantPress}
+				ref={add_bottom_sheet_ref}
 			/>
 		</Screen>
 	);
