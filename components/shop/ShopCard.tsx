@@ -7,11 +7,12 @@ import Card from "../card/Card";
 
 interface ShopCardProps {
 	item: PlantItemType;
+	onPress?: () => void;
 }
 
-const ShopCard = ({ item }: ShopCardProps) => {
+const ShopCard = ({ item, onPress }: ShopCardProps) => {
 	return (
-		<Card>
+		<Card onPress={onPress}>
 			<View className="flex-row items-center justify-between">
 				<View className="flex-row items-center gap-3">
 					<Image
