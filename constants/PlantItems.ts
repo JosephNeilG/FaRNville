@@ -9,6 +9,8 @@ export const PLANT_ITEMS: PlantItemType[] = [
 		profit: 5.0,
 		image: require("@/assets/images/products/carrot.png"),
 		pcs_remaining: 2,
+		harvest_countdown: 260,
+		progress: 0.1,
 	},
 	{
 		id: 2,
@@ -18,6 +20,8 @@ export const PLANT_ITEMS: PlantItemType[] = [
 		profit: 9.0,
 		image: require("@/assets/images/products/potato.png"),
 		pcs_remaining: 1,
+		harvest_countdown: 83,
+		progress: 0.8,
 	},
 	{
 		id: 3,
@@ -27,5 +31,7 @@ export const PLANT_ITEMS: PlantItemType[] = [
 		profit: 12,
 		image: require("@/assets/images/products/cabbage.png"),
 		pcs_remaining: 1,
+		harvest_countdown: 0,
+		progress: 1,
 	},
 ];
