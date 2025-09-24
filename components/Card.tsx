@@ -21,7 +21,7 @@ export default Card;
 const styles = StyleSheet.create({
 	card_shadow: {
 		elevation: 3,
-		shadowColor: COLORS.dark_100,
+		shadowColor: COLORS.dark[100],
 		shadowOffset: { width: 0, height: 3 },
 		shadowOpacity: 0.1,
 		shadowRadius: 1,

@@ -21,6 +21,12 @@ module.exports = {
 					300: "#6E6E6E",
 				},
 				danger: "#FF6357",
+
+				progress: {
+					low: "#FFC46D",
+					medium: "#F4D35E",
+					complete: "#00623A",
+				},
 			},
 		},
 	},

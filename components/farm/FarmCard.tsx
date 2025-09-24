@@ -12,6 +12,7 @@ interface FarmCardProps {
 	item: PlantItemType;
 }
 const FarmCard = ({ item }: FarmCardProps) => {
+	const is_ready_to_harvest = item.harvest_countdown === 0;
 	return (
 		<Card>
 			<View className="flex-row justify-between mb-3">
@@ -24,7 +25,7 @@ const FarmCard = ({ item }: FarmCardProps) => {
 					<View>
 						<Text className="text-xl font-medium">{item.name}</Text>
 
-						{item.harvest_countdown === 0 ? (
+						{is_ready_to_harvest ? (
 							<Text className="text-dark-300 text-lg">
 								Harvest now!
 							</Text>
@@ -40,7 +41,7 @@ const FarmCard = ({ item }: FarmCardProps) => {
 				</View>
 
 				<View>
-					{item.harvest_countdown === 0 ? (
+					{is_ready_to_harvest ? (
 						<CardButton
 							bg_color={COLORS.primary}
 							icon="check"
@@ -54,7 +55,7 @@ const FarmCard = ({ item }: FarmCardProps) => {
 						/>
 					)}
 
-					{item.harvest_countdown === 0 && (
+					{is_ready_to_harvest && (
 						<View className="mt-2">
 							<View className="flex-row items-center justify-end gap-2">
 								<FontAwesome6
@@ -76,12 +77,12 @@ const FarmCard = ({ item }: FarmCardProps) => {
 				width={null}
 				color={
 					item.progress < 0.33
-						? "#FFC46D"
+						? COLORS.progress.low
 						: item.progress < 1
-						? "#F4D35E"
+						? COLORS.progress.medium
 						: COLORS.primary
 				}
-				unfilledColor={COLORS.light_200}
+				unfilledColor={COLORS.light[200]}
 				borderWidth={0}
 				borderRadius={14}
 				height={14}

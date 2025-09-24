@@ -10,7 +10,7 @@ const TabLayout = () => {
 			screenOptions={{
 				headerShown: false,
 				tabBarActiveTintColor: COLORS.primary,
-				tabBarInactiveTintColor: COLORS.dark_100,
+				tabBarInactiveTintColor: COLORS.dark[100],
 				sceneStyle: styles.scene,
 				tabBarStyle: styles.tab_bar,
 				tabBarLabelStyle: styles.tab_label,
@@ -48,7 +48,7 @@ const TabLayout = () => {
 
 const styles = StyleSheet.create({
 	scene: {
-		backgroundColor: COLORS.light_100,
+		backgroundColor: COLORS.light[100],
 	},
 	tab_label: {
 		fontSize: 14,
