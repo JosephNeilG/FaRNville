@@ -7,4 +7,5 @@ export type PlantItemType = {
 	harvest_time: number;
 	profit: number;
 	image: ImageSourcePropType;
+	pcs_remaining: number;
 };
