@@ -5,8 +5,8 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
-import Card from "../Card";
-import CardButton from "../CardButton";
+import Card from "../card/Card";
+import CardButton from "../card/CardButton";
 
 interface FarmCardProps {
 	item: PlantItemType;

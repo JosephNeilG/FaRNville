@@ -3,7 +3,7 @@ import { PlantItemType } from "@/entities/plant.types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Image, Text, View } from "react-native";
-import Card from "../Card";
+import Card from "../card/Card";
 
 interface SeedsCard {
 	item: PlantItemType;
