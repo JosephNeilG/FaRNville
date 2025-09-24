@@ -7,7 +7,7 @@ interface ScreenProps {
 
 const Screen = ({ children }: ScreenProps) => {
 	return (
-		<SafeAreaView className="flex-1 pt-[160px] px-7">
+		<SafeAreaView className="flex-1 pt-[160px] px-5">
 			{children}
 		</SafeAreaView>
 	);
