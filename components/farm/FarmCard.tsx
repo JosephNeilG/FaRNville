@@ -10,8 +10,9 @@ import CardButton from "../card/CardButton";
 
 interface FarmCardProps {
 	item: PlantItemType;
+	onRemovePress: () => void;
 }
-const FarmCard = ({ item }: FarmCardProps) => {
+const FarmCard = ({ item, onRemovePress }: FarmCardProps) => {
 	const is_ready_to_harvest = item.harvest_countdown === 0;
 	return (
 		<Card>
@@ -49,6 +50,7 @@ const FarmCard = ({ item }: FarmCardProps) => {
 						/>
 					) : (
 						<CardButton
+							onPress={onRemovePress}
 							bg_color={COLORS.danger}
 							icon="xmark"
 							label="Remove"

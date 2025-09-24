@@ -1,0 +1,75 @@
+import { COLORS } from "@/constants/Colors";
+import {
+	BottomSheetBackdrop,
+	BottomSheetModal,
+	BottomSheetView,
+} from "@gorhom/bottom-sheet";
+import React, { forwardRef, useCallback, useMemo } from "react";
+import { View } from "react-native";
+import CustomButton from "../CustomButton";
+import IconBox from "../IconBox";
+import SectionTitle from "../SectionTitle";
+import SubtitleProps from "../Subtitle";
+
+interface RemovePlantBottomSheetProps {
+	onRemovePress: () => void;
+}
+
+const RemovePlantBottomSheet = forwardRef<
+	BottomSheetModal,
+	RemovePlantBottomSheetProps
+>(({ onRemovePress }, ref) => {
+	const snap_points = useMemo(() => ["40%"], []);
+
+	const renderBackdrop = useCallback(
+		(props: any) => (
+			<BottomSheetBackdrop
+				{...props}
+				disappearsOnIndex={-1}
+				appearsOnIndex={0}
+			/>
+		),
+		[]
+	);
+
+	const handleDismiss = useCallback(() => {
+		(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss();
+	}, []);
+
+	return (
+		<BottomSheetModal
+			backdropComponent={renderBackdrop}
+			ref={ref}
+			snapPoints={snap_points}
+			backgroundStyle={{ backgroundColor: COLORS.light[100] }}>
+			<BottomSheetView className="flex-1 px-5 pb-6">
+				<View className="items-center">
+					<IconBox
+						icon_name="triangle-exclamation"
+						icon_color={COLORS.danger}
+						bg_color={COLORS.accent.red}
+					/>
+
+					<SectionTitle title_text="Remove Plant?" />
+
+					<SubtitleProps subtitle_text="Are you sure you want to remove Carrot?" />
+				</View>
+
+				<CustomButton
+					onPress={onRemovePress}
+					button_text="Yes, remove"
+					bg_color={COLORS.danger}
+				/>
+
+				<CustomButton
+					onPress={handleDismiss}
+					button_text="Cancel"
+					bordered
+					font_color={COLORS.white}
+				/>
+			</BottomSheetView>
+		</BottomSheetModal>
+	);
+});
+
+export default RemovePlantBottomSheet;

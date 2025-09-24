@@ -2,7 +2,7 @@ export const COLORS = {
 	primary: "#00623A",
 	black: "#000",
 	white: "#fff",
-	danger: "#FF6357",
+	danger: "#DC2928",
 
 	light: {
 		100: "#F6F8FA",
@@ -25,5 +25,9 @@ export const COLORS = {
 		low: "#FFC46D",
 		medium: "#F4D35E",
 		complete: "#00623A",
+	},
+
+	accent: {
+		red: "#FDE2E0",
 	},
 };
