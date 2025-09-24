@@ -5,11 +5,11 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 import Card from "../Card";
 
-interface ShopCardProps {
+interface SeedsCard {
 	item: PlantItemType;
 }
 
-const SeedsCard = ({ item }: ShopCardProps) => {
+const SeedsCard = ({ item }: SeedsCard) => {
 	const pcs_remaining_label =
 		item.pcs_remaining > 1 ? "pcs remaining" : "pc remaining";
 
