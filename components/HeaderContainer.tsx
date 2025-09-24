@@ -33,28 +33,23 @@ const HeaderContainer = () => {
 
 				<View className="flex-row gap-[35px] border border-dark-200 rounded-xl px-4 py-2 bg-[#19734E] items-center">
 					<View>
-						<Text className="text-base text-light-200 font-light">
-							Profit
-						</Text>
-						<Text className="text-lg text-white font-medium">
-							$0.00
-						</Text>
+						<Text className={title_style}>Profit</Text>
+						<Text className={subtitle_style}>$0.00</Text>
 					</View>
 
 					<View className="border-[0.5px] border-dark-200 h-[35px]"></View>
 
 					<View>
-						<Text className="text-base text-light-200 font-light">
-							Expense
-						</Text>
-						<Text className="text-lg text-white font-medium">
-							$0.00
-						</Text>
+						<Text className={title_style}>Expense</Text>
+						<Text className={subtitle_style}>$0.00</Text>
 					</View>
 				</View>
 			</View>
 		</View>
 	);
 };
+
+const title_style = "text-base text-light-200 font-light";
+const subtitle_style = "text-lg text-white font-medium";
 
 export default HeaderContainer;
