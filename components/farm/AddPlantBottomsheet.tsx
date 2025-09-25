@@ -3,6 +3,7 @@ import {
 	BottomSheetModal,
 	BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { useRouter } from "expo-router";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
@@ -12,6 +13,7 @@ import { PlantItemType } from "@/entities/plant.types";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";
+import EmptySeedsList from "../seeds/EmptySeedsList";
 import SeedsCard from "../seeds/SeedsCard";
 
 interface RemovePlantBottomSheetProps {
@@ -22,6 +24,8 @@ const AddPlantBottomSheet = forwardRef<
 	BottomSheetModal,
 	RemovePlantBottomSheetProps
 >(({ onAddPlantPress }, ref) => {
+	const router = useRouter();
+
 	const snap_points = useMemo(() => ["80%"], []);
 
 	const renderBackdrop = useCallback(
@@ -38,6 +42,15 @@ const AddPlantBottomSheet = forwardRef<
 	const handleDismiss = useCallback(() => {
 		(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss();
 	}, []);
+
+	const handleEmptyBtnPress = () => {
+		router.replace("/(tabs)/shop");
+		handleDismiss();
+	};
+
+	const renderEmptySeedsCard = () => (
+		<EmptySeedsList onPress={handleEmptyBtnPress} />
+	);
 
 	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (
 		<SeedsCard item={item} />
@@ -60,7 +73,8 @@ const AddPlantBottomSheet = forwardRef<
 					data={PLANT_ITEMS}
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={renderSeedsCard}
-					contentContainerStyle={{ flex: 1, paddingBottom: 10 }}
+					contentContainerStyle={{ flex: 1, paddingVertical: 10 }}
+					ListEmptyComponent={renderEmptySeedsCard}
 				/>
 
 				<CustomButton

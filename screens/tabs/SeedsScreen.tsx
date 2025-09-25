@@ -4,11 +4,23 @@ import { FlatList, ListRenderItem } from "react-native";
 import HeaderContainer from "@/components/HeaderContainer";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
+import EmptySeedsList from "@/components/seeds/EmptySeedsList";
 import SeedsCard from "@/components/seeds/SeedsCard";
 import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
+import { useRouter } from "expo-router";
 
 const SeedsScreen = () => {
+	const router = useRouter();
+
+	const handleEmptyBtnPress = () => {
+		router.replace("/(tabs)/shop");
+	};
+
+	const renderEmptySeedsCard = () => (
+		<EmptySeedsList onPress={handleEmptyBtnPress} />
+	);
+
 	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (
 		<SeedsCard item={item} />
 	);
@@ -23,6 +35,7 @@ const SeedsScreen = () => {
 				data={PLANT_ITEMS}
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderSeedsCard}
+				ListEmptyComponent={renderEmptySeedsCard}
 				contentContainerStyle={{ flex: 1 }}
 			/>
 		</Screen>

@@ -61,6 +61,11 @@ const FarmScreen = () => {
 			onHarvestPress={handleHarvestPress}
 		/>
 	);
+
+	const renderFooterComponent = () => (
+		<AddPlantCard onPress={handlePresentAddModalPress} />
+	);
+
 	return (
 		<Screen>
 			<HeaderContainer />
@@ -71,10 +76,8 @@ const FarmScreen = () => {
 				data={PLANT_ITEMS}
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderFarmCards}
+				ListFooterComponent={renderFooterComponent}
 				contentContainerStyle={{ flex: 1 }}
-				ListFooterComponent={
-					<AddPlantCard onPress={handlePresentAddModalPress} />
-				}
 			/>
 
 			<RemovePlantBottomSheet
