@@ -1,3 +1,7 @@
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import React, { useCallback, useRef, useState } from "react";
+import { FlatList, ListRenderItem } from "react-native";
+
 import CustomButton from "@/components/CustomButton";
 import CustomModal from "@/components/CustomModal";
 import HeaderContainer from "@/components/HeaderContainer";
@@ -10,9 +14,6 @@ import Subtitle from "@/components/Subtitle";
 import { COLORS } from "@/constants/Colors";
 import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useCallback, useRef, useState } from "react";
-import { FlatList, ListRenderItem } from "react-native";
 
 const ShopScreen = () => {
 	const [open_confirm_modal, setOpenConfirmModal] = useState(false);

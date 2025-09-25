@@ -1,5 +1,6 @@
-import ShopScreen from "@/screens/tabs/ShopScreen";
 import React from "react";
+
+import ShopScreen from "@/screens/tabs/ShopScreen";
 
 const Shop = () => {
 	return <ShopScreen />;

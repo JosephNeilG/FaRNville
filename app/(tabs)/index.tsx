@@ -1,5 +1,6 @@
-import FarmScreen from "@/screens/tabs/FarmScreen";
 import React from "react";
+
+import FarmScreen from "@/screens/tabs/FarmScreen";
 
 const Farm = () => {
 	return <FarmScreen />;

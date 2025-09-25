@@ -1,6 +1,3 @@
-import { COLORS } from "@/constants/Colors";
-import { PLANT_ITEMS } from "@/constants/PlantItems";
-import { PlantItemType } from "@/entities/plant.types";
 import {
 	BottomSheetBackdrop,
 	BottomSheetModal,
@@ -8,6 +5,10 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
+import { PLANT_ITEMS } from "@/constants/PlantItems";
+import { PlantItemType } from "@/entities/plant.types";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";

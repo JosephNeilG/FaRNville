@@ -1,7 +1,8 @@
-import { COLORS } from "@/constants/Colors";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Text, TouchableOpacity } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface CardButtonProps {
 	label: string;

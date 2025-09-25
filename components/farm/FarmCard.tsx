@@ -1,10 +1,11 @@
-import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
-import { formatSecondsToMinutesSeconds } from "@/helpers/timeHelper";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Image, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
+
+import { COLORS } from "@/constants/Colors";
+import { PlantItemType } from "@/entities/plant.types";
+import { formatSecondsToMinutesSeconds } from "@/helpers/timeHelper";
 import Card from "../card/Card";
 import CardButton from "../card/CardButton";
 

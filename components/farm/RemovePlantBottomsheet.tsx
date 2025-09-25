@@ -1,4 +1,3 @@
-import { COLORS } from "@/constants/Colors";
 import {
 	BottomSheetBackdrop,
 	BottomSheetModal,
@@ -6,6 +5,8 @@ import {
 } from "@gorhom/bottom-sheet";
 import React, { forwardRef, useCallback, useMemo } from "react";
 import { View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";

@@ -1,6 +1,7 @@
-import { COLORS } from "@/constants/Colors";
 import React, { ReactNode } from "react";
 import { Pressable, StyleSheet } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface CardProps {
 	children: ReactNode;

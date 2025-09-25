@@ -1,7 +1,8 @@
-import { COLORS } from "@/constants/Colors";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface IconBoxProps {
 	icon_name: keyof typeof FontAwesome6.glyphMap;

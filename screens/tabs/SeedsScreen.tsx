@@ -1,11 +1,12 @@
+import React from "react";
+import { FlatList, ListRenderItem } from "react-native";
+
 import HeaderContainer from "@/components/HeaderContainer";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import SeedsCard from "@/components/seeds/SeedsCard";
 import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
-import React from "react";
-import { FlatList, ListRenderItem } from "react-native";
 
 const SeedsScreen = () => {
 	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (

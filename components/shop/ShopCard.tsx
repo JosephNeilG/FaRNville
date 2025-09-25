@@ -1,8 +1,9 @@
-import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Image, Text, View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
+import { PlantItemType } from "@/entities/plant.types";
 import Card from "../card/Card";
 
 interface ShopCardProps {

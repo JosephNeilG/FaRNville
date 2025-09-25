@@ -1,8 +1,9 @@
-import { COLORS } from "@/constants/Colors";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import React, { useState } from "react";
 import { TouchableOpacity, View } from "react-native";
+
+import { COLORS } from "@/constants/Colors";
 
 interface QuantityStepperProps {
 	onQuantityChange?: (value: number) => void;
