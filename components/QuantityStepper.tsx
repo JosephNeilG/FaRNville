@@ -1,47 +1,33 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
-import React, { useState } from "react";
+import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 
 interface QuantityStepperProps {
+	quantity: number;
 	onQuantityChange?: (value: number) => void;
 }
 
-const QuantityStepper = ({ onQuantityChange }: QuantityStepperProps) => {
-	const [quantity, setQuantity] = useState(1);
+const QuantityStepper = ({
+	quantity,
+	onQuantityChange,
+}: QuantityStepperProps) => {
+	if (!onQuantityChange) return;
 
 	const handleDecrement = () => {
-		const new_quantity = quantity - 1;
-
-		if (new_quantity < 0) {
-			setQuantity(0);
-			onQuantityChange?.(0);
-			return;
-		}
-
-		setQuantity(new_quantity);
-		onQuantityChange?.(new_quantity);
+		const new_quantity = Math.max(0, quantity - 1);
+		onQuantityChange(new_quantity);
 	};
 
 	const handleIncrement = () => {
-		const new_quantity = quantity + 1;
-		setQuantity(new_quantity);
-		onQuantityChange?.(new_quantity);
+		onQuantityChange(quantity + 1);
 	};
 
 	const handleChange = (text: string) => {
 		const numeric = parseInt(text, 10);
-
-		if (isNaN(numeric)) {
-			setQuantity(0);
-			onQuantityChange?.(0);
-			return;
-		}
-
-		setQuantity(numeric);
-		onQuantityChange?.(numeric);
+		onQuantityChange(isNaN(numeric) ? 0 : numeric);
 	};
 
 	return (

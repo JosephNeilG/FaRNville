@@ -18,10 +18,16 @@ import { PlantItemType } from "@/entities/plant.types";
 const ShopScreen = () => {
 	const [open_confirm_modal, setOpenConfirmModal] = useState(false);
 	const [open_success_modal, setOpenSuccessModal] = useState(false);
+	const [selected_plant, setSelectedPlant] = useState<PlantItemType | null>(
+		null
+	);
+	const [selected_quantity, setSelectedQuantity] = useState(1);
 
 	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 
-	const handlePresentBuyModalPress = useCallback(() => {
+	const handlePresentBuyModalPress = useCallback((plant: PlantItemType) => {
+		setSelectedPlant(plant);
+		setSelectedQuantity(1);
 		bottom_sheet_ref.current?.present();
 	}, []);
 
@@ -32,13 +38,9 @@ const ShopScreen = () => {
 		bottom_sheet_ref.current?.dismiss();
 	};
 
-	const handleConfirmModalDismiss = () => {
-		setOpenConfirmModal(false);
-	};
+	const handleConfirmModalDismiss = () => setOpenConfirmModal(false);
 
-	const handleSuccessModalDismiss = () => {
-		setOpenSuccessModal(false);
-	};
+	const handleSuccessModalDismiss = () => setOpenSuccessModal(false);
 
 	const handleAcceptBtnPress = () => {
 		console.log("confirm pressed");
@@ -54,7 +56,10 @@ const ShopScreen = () => {
 	};
 
 	const renderShopCards: ListRenderItem<PlantItemType> = ({ item }) => (
-		<ShopCard item={item} onPress={handlePresentBuyModalPress} />
+		<ShopCard
+			item={item}
+			onPress={() => handlePresentBuyModalPress(item)}
+		/>
 	);
 
 	return (
@@ -72,7 +77,9 @@ const ShopScreen = () => {
 
 			<BuyPlantBottomSheet
 				onBuyPress={handleBuyPress}
-				plant_name="Carrot"
+				onQuantityChange={setSelectedQuantity}
+				plant={selected_plant}
+				quantity={selected_quantity}
 				ref={bottom_sheet_ref}
 			/>
 
@@ -82,7 +89,13 @@ const ShopScreen = () => {
 				<IconBox icon_name="credit-card" />
 
 				<SectionTitle title_text="Confirm Purchase?" />
-				<Subtitle subtitle_text="Buy 2 Carrots for $6.00?" />
+				<Subtitle
+					subtitle_text={`Buy ${selected_quantity} ${
+						selected_plant?.name
+					}(s) for $${(
+						(selected_plant?.price || 0) * selected_quantity
+					).toFixed(2)}?`}
+				/>
 
 				<CustomButton
 					onPress={handleAcceptBtnPress}
@@ -102,7 +115,9 @@ const ShopScreen = () => {
 				<IconBox icon_name="check" />
 
 				<SectionTitle title_text="Purchase Successful!" />
-				<Subtitle subtitle_text="You bought 2 Carrots. They're now in your Seeds." />
+				<Subtitle
+					subtitle_text={`You bought ${selected_quantity} ${selected_plant?.name}(s). They're now in your Seeds.`}
+				/>
 
 				<CustomButton
 					onPress={handleGotItBtnPress}
