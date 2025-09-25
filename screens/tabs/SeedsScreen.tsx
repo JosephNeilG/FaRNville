@@ -6,12 +6,13 @@ import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import EmptySeedsList from "@/components/seeds/EmptySeedsList";
 import SeedsCard from "@/components/seeds/SeedsCard";
-import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
+import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "expo-router";
 
 const SeedsScreen = () => {
 	const router = useRouter();
+	const seeds = useGameStore((state) => state.seeds);
 
 	const handleEmptyBtnPress = () => {
 		router.replace("/(tabs)/shop");
@@ -32,7 +33,7 @@ const SeedsScreen = () => {
 			<SectionTitle title_text="Available Seeds" />
 
 			<FlatList
-				data={PLANT_ITEMS}
+				data={seeds}
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderSeedsCard}
 				ListEmptyComponent={renderEmptySeedsCard}

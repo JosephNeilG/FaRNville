@@ -6,6 +6,7 @@ import { useShallow } from "zustand/shallow";
 
 const HeaderContainer = () => {
 	const insets = useSafeAreaInsets();
+	const resetGameStore = useGameStore((state) => state.reset);
 
 	const { earnings, expenses, profit } = useGameStore(
 		useShallow((state) => ({
@@ -15,6 +16,10 @@ const HeaderContainer = () => {
 		}))
 	);
 
+	const handleProfilePress = () => {
+		resetGameStore();
+	};
+
 	return (
 		<View
 			className="absolute bg-primary h-[195px] left-0 right-0 px-5 rounded-b-[25px]"
@@ -23,7 +28,9 @@ const HeaderContainer = () => {
 				<Text className="text-xl text-white font-light">
 					Hello, <Text className="font-medium">Joseph Neil</Text>
 				</Text>
-				<TouchableOpacity className="border border-dark-200 rounded-full">
+				<TouchableOpacity
+					className="border border-dark-200 rounded-full"
+					onPress={handleProfilePress}>
 					<Image
 						source={require("@/assets/images/joseph.jpg")}
 						className="w-[35px] h-[35px] rounded-full"

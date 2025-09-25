@@ -8,8 +8,8 @@ import React, { forwardRef, useCallback, useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
-import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
+import { useGameStore } from "@/store/gameStore";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";
@@ -25,8 +25,8 @@ const AddPlantBottomSheet = forwardRef<
 	RemovePlantBottomSheetProps
 >(({ onAddPlantPress }, ref) => {
 	const router = useRouter();
-
 	const snap_points = useMemo(() => ["80%"], []);
+	const seeds = useGameStore((state) => state.seeds);
 
 	const renderBackdrop = useCallback(
 		(props: any) => (
@@ -70,7 +70,7 @@ const AddPlantBottomSheet = forwardRef<
 				</View>
 
 				<FlatList
-					data={PLANT_ITEMS}
+					data={seeds}
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={renderSeedsCard}
 					contentContainerStyle={{ flex: 1, paddingVertical: 10 }}

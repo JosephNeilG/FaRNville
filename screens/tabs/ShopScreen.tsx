@@ -14,8 +14,10 @@ import Subtitle from "@/components/Subtitle";
 import { COLORS } from "@/constants/Colors";
 import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
+import { useGameStore } from "@/store/gameStore";
 
 const ShopScreen = () => {
+	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const [open_confirm_modal, setOpenConfirmModal] = useState(false);
 	const [open_success_modal, setOpenSuccessModal] = useState(false);
 	const [selected_plant, setSelectedPlant] = useState<PlantItemType | null>(
@@ -23,7 +25,7 @@ const ShopScreen = () => {
 	);
 	const [selected_quantity, setSelectedQuantity] = useState(1);
 
-	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
+	const addSeed = useGameStore((state) => state.buySeed);
 
 	const handlePresentBuyModalPress = useCallback((plant: PlantItemType) => {
 		setSelectedPlant(plant);
@@ -43,7 +45,9 @@ const ShopScreen = () => {
 	const handleSuccessModalDismiss = () => setOpenSuccessModal(false);
 
 	const handleAcceptBtnPress = () => {
-		console.log("confirm pressed");
+		if (selected_plant) {
+			addSeed(selected_plant, selected_quantity);
+		}
 
 		setOpenConfirmModal(false);
 		setOpenSuccessModal(true);
@@ -66,7 +70,7 @@ const ShopScreen = () => {
 		<Screen>
 			<HeaderContainer />
 
-			<SectionTitle title_text="Shop Plants" />
+			<SectionTitle title_text="Shop Seeds" />
 
 			<FlatList
 				data={PLANT_ITEMS}
