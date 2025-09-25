@@ -11,6 +11,7 @@ interface CustomButtonProps {
 	border_color?: string;
 	bordered?: boolean;
 	width?: number | string;
+	disabled?: boolean;
 }
 
 const CustomButton = ({
@@ -21,10 +22,12 @@ const CustomButton = ({
 	border_color = COLORS.dark[300],
 	bordered = false,
 	width = "100%",
+	disabled,
 }: CustomButtonProps) => {
 	return (
 		<TouchableOpacity
 			onPress={onPress}
+			disabled={disabled}
 			style={
 				{
 					backgroundColor: bordered ? "transparent" : bg_color,

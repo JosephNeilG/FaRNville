@@ -27,6 +27,9 @@ const AddPlantBottomSheet = forwardRef<
 	const router = useRouter();
 	const snap_points = useMemo(() => ["80%"], []);
 	const seeds = useGameStore((state) => state.seeds);
+	const [selected_seed_card, setSelectedSeedCard] =
+		React.useState<PlantItemType | null>(null);
+	const is_plant_now_btn_disabled = !selected_seed_card;
 
 	const renderBackdrop = useCallback(
 		(props: any) => (
@@ -48,12 +51,31 @@ const AddPlantBottomSheet = forwardRef<
 		handleDismiss();
 	};
 
+	const handleSeedCardPress = (seed: PlantItemType) => {
+		if (selected_seed_card?.id === seed.id) {
+			setSelectedSeedCard(null);
+		} else {
+			setSelectedSeedCard(seed);
+		}
+	};
+
+	const handleAddPlantPress = () => {
+		if (selected_seed_card) {
+			onAddPlantPress();
+			setSelectedSeedCard(null);
+		}
+	};
+
 	const renderEmptySeedsCard = () => (
 		<EmptySeedsList onPress={handleEmptyBtnPress} />
 	);
 
 	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (
-		<SeedsCard item={item} />
+		<SeedsCard
+			item={item}
+			onPress={() => handleSeedCardPress(item)}
+			is_selected={selected_seed_card?.id === item.id}
+		/>
 	);
 
 	return (
@@ -73,14 +95,23 @@ const AddPlantBottomSheet = forwardRef<
 					data={seeds}
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={renderSeedsCard}
-					contentContainerStyle={{ flex: 1, paddingVertical: 10 }}
 					ListEmptyComponent={renderEmptySeedsCard}
+					contentContainerStyle={{ flex: 1, paddingVertical: 10 }}
 				/>
 
-				<CustomButton
-					onPress={onAddPlantPress}
-					button_text="Plant now"
-				/>
+				{seeds.length > 0 && (
+					<CustomButton
+						onPress={handleAddPlantPress}
+						button_text="Plant now"
+						disabled={is_plant_now_btn_disabled}
+						bg_color={
+							is_plant_now_btn_disabled
+								? COLORS.dark[100]
+								: COLORS.primary
+						}
+						font_color={COLORS.white}
+					/>
+				)}
 
 				<CustomButton
 					onPress={handleDismiss}

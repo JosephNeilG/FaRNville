@@ -5,15 +5,23 @@ import { COLORS } from "@/constants/Colors";
 
 interface CardProps {
 	children: ReactNode;
+	is_selected?: boolean;
 	onPress?: () => void;
 }
 
-const Card = ({ children, onPress }: CardProps) => {
+const Card = ({ children, is_selected, onPress }: CardProps) => {
 	return (
 		<Pressable
 			onPress={onPress}
-			className="bg-white p-3 rounded-xl mt-4"
-			style={styles.card_shadow}>
+			style={[
+				{
+					borderWidth: is_selected ? 2 : 2,
+					borderColor: is_selected ? COLORS.primary : "transparent",
+					borderRadius: 12,
+				},
+				styles.card_shadow,
+			]}
+			className="bg-white p-3 rounded-xl mt-4">
 			{children}
 		</Pressable>
 	);

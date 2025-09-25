@@ -8,14 +8,16 @@ import Card from "../card/Card";
 
 interface SeedsCard {
 	item: PlantItemType;
+	is_selected?: boolean;
+	onPress: () => void;
 }
 
-const SeedsCard = ({ item }: SeedsCard) => {
+const SeedsCard = ({ item, is_selected, onPress }: SeedsCard) => {
 	const pcs_remaining_label =
 		item.pcs_remaining > 1 ? "pcs remaining" : "pc remaining";
 
 	return (
-		<Card>
+		<Card onPress={onPress} is_selected={is_selected}>
 			<View className="flex-row items-center justify-between">
 				<View className="flex-row items-center gap-3">
 					<Image
