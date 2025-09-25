@@ -1,15 +1,23 @@
+import CustomButton from "@/components/CustomButton";
+import CustomModal from "@/components/CustomModal";
 import HeaderContainer from "@/components/HeaderContainer";
+import IconBox from "@/components/IconBox";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import BuyPlantBottomSheet from "@/components/shop/BuyPlantBottomSheet";
 import ShopCard from "@/components/shop/ShopCard";
+import Subtitle from "@/components/Subtitle";
+import { COLORS } from "@/constants/Colors";
 import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 
 const ShopScreen = () => {
+	const [open_confirm_modal, setOpenConfirmModal] = useState(false);
+	const [open_success_modal, setOpenSuccessModal] = useState(false);
+
 	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 
 	const handlePresentBuyModalPress = useCallback(() => {
@@ -18,7 +26,30 @@ const ShopScreen = () => {
 
 	const handleBuyPress = () => {
 		console.log("buy pressed");
+
+		setOpenConfirmModal(true);
 		bottom_sheet_ref.current?.dismiss();
+	};
+
+	const handleConfirmModalDismiss = () => {
+		setOpenConfirmModal(false);
+	};
+
+	const handleSuccessModalDismiss = () => {
+		setOpenSuccessModal(false);
+	};
+
+	const handleAcceptBtnPress = () => {
+		console.log("confirm pressed");
+
+		setOpenConfirmModal(false);
+		setOpenSuccessModal(true);
+	};
+
+	const handleGotItBtnPress = () => {
+		console.log("got it pressed");
+
+		setOpenSuccessModal(false);
 	};
 
 	const renderShopCards: ListRenderItem<PlantItemType> = ({ item }) => (
@@ -39,10 +70,44 @@ const ShopScreen = () => {
 			/>
 
 			<BuyPlantBottomSheet
+				onBuyPress={handleBuyPress}
 				plant_name="Carrot"
 				ref={bottom_sheet_ref}
-				onBuyPress={handleBuyPress}
 			/>
+
+			<CustomModal
+				onClose={handleConfirmModalDismiss}
+				is_open={open_confirm_modal}>
+				<IconBox icon_name="credit-card" />
+
+				<SectionTitle title_text="Confirm Purchase?" />
+				<Subtitle subtitle_text="Buy 2 Carrots for $6.00?" />
+
+				<CustomButton
+					onPress={handleAcceptBtnPress}
+					button_text="Accept"
+				/>
+				<CustomButton
+					onPress={handleConfirmModalDismiss}
+					button_text="Cancel"
+					bordered
+					font_color={COLORS.white}
+				/>
+			</CustomModal>
+
+			<CustomModal
+				onClose={handleSuccessModalDismiss}
+				is_open={open_success_modal}>
+				<IconBox icon_name="check" />
+
+				<SectionTitle title_text="Purchase Successful!" />
+				<Subtitle subtitle_text="You bought 2 Carrots. They're now in your Seeds." />
+
+				<CustomButton
+					onPress={handleGotItBtnPress}
+					button_text="Got it"
+				/>
+			</CustomModal>
 		</Screen>
 	);
 };

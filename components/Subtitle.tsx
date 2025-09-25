@@ -1,16 +1,16 @@
 import React from "react";
 import { Text } from "react-native";
 
-interface SubtitleProps {
+interface Subtitle {
 	subtitle_text: string;
 }
 
-const SubtitleProps = ({ subtitle_text }: SubtitleProps) => {
+const Subtitle = ({ subtitle_text }: Subtitle) => {
 	return (
-		<Text className="text-dark-300 text-lg font-normal mt-1 mb-3">
+		<Text className="text-dark-300 text-lg font-normal mt-1 mb-3 text-center">
 			{subtitle_text}
 		</Text>
 	);
 };
 
-export default SubtitleProps;
+export default Subtitle;

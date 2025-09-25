@@ -9,7 +9,7 @@ import { View } from "react-native";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";
-import SubtitleProps from "../Subtitle";
+import Subtitle from "../Subtitle";
 
 interface RemovePlantBottomSheetProps {
 	onRemovePress: () => void;
@@ -52,7 +52,7 @@ const RemovePlantBottomSheet = forwardRef<
 
 					<SectionTitle title_text="Remove Plant?" />
 
-					<SubtitleProps subtitle_text="Are you sure you want to remove Carrot?" />
+					<Subtitle subtitle_text="Are you sure you want to remove Carrot?" />
 				</View>
 
 				<CustomButton

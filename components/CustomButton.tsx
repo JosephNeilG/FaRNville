@@ -32,7 +32,7 @@ const CustomButton = ({
 					width: width,
 				} as StyleProp<ViewStyle>
 			}
-			className="py-3 rounded-xl items-center justify-center mt-3">
+			className="py-2 rounded-xl items-center justify-center mt-3">
 			<Text
 				style={{ color: bordered ? COLORS.dark[300] : font_color }}
 				className="text-lg font-normal">
