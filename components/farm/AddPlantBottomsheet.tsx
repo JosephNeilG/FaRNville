@@ -112,7 +112,6 @@ const AddPlantBottomSheet = forwardRef<
 								? COLORS.dark[100]
 								: COLORS.primary
 						}
-						font_color={COLORS.white}
 					/>
 				)}
 

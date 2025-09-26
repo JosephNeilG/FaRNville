@@ -8,6 +8,7 @@ import { Text, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 import { PlantItemType } from "@/entities/plant.types";
+import { useGameStore } from "@/store/gameStore";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import QuantityStepper from "../QuantityStepper";
@@ -24,6 +25,8 @@ const BuyPlantBottomSheet = forwardRef<
 	BottomSheetModal,
 	BuyPlantBottomSheetProps
 >(({ plant, quantity, onQuantityChange, onBuyPress }, ref) => {
+	const earnings = useGameStore((state) => state.earnings);
+
 	const snap_points = useMemo(() => ["40%"], []);
 
 	const renderBackdrop = useCallback(
@@ -42,6 +45,9 @@ const BuyPlantBottomSheet = forwardRef<
 	}, []);
 
 	if (!plant) return;
+
+	const total_cost = plant.price * quantity;
+	const is_plant_now_btn_disabled = total_cost > earnings || total_cost === 0;
 
 	return (
 		<BottomSheetModal
@@ -66,11 +72,20 @@ const BuyPlantBottomSheet = forwardRef<
 				<View className="flex-row mt-3 items-center justify-between">
 					<Text className="text-lg">Total Cost</Text>
 					<Text className="font-semibold text-2xl">
-						${(plant.price * quantity).toFixed(2)}
+						${total_cost.toFixed(2)}
 					</Text>
 				</View>
 
-				<CustomButton onPress={onBuyPress} button_text="Buy Now" />
+				<CustomButton
+					onPress={onBuyPress}
+					button_text="Buy Now"
+					disabled={is_plant_now_btn_disabled}
+					bg_color={
+						is_plant_now_btn_disabled
+							? COLORS.dark[100]
+							: COLORS.primary
+					}
+				/>
 
 				<CustomButton
 					onPress={handleDismiss}
