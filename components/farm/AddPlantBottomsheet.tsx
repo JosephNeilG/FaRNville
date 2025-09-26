@@ -8,7 +8,7 @@ import React, { forwardRef, useCallback, useMemo } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import { useGameStore } from "@/store/gameStore";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
@@ -28,7 +28,7 @@ const AddPlantBottomSheet = forwardRef<
 	const snap_points = useMemo(() => ["80%"], []);
 	const seeds = useGameStore((state) => state.seeds);
 	const [selected_seed_card, setSelectedSeedCard] =
-		React.useState<PlantItemType | null>(null);
+		React.useState<SeedItemType | null>(null);
 	const is_plant_now_btn_disabled = !selected_seed_card;
 
 	const renderBackdrop = useCallback(
@@ -51,7 +51,7 @@ const AddPlantBottomSheet = forwardRef<
 		handleDismiss();
 	};
 
-	const handleSeedCardPress = (seed: PlantItemType) => {
+	const handleSeedCardPress = (seed: SeedItemType) => {
 		if (selected_seed_card?.id === seed.id) {
 			setSelectedSeedCard(null);
 		} else {
@@ -73,7 +73,7 @@ const AddPlantBottomSheet = forwardRef<
 		<EmptySeedsList onPress={handleEmptyBtnPress} />
 	);
 
-	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (
+	const renderSeedsCard: ListRenderItem<SeedItemType> = ({ item }) => (
 		<SeedsCard
 			item={item}
 			onPress={() => handleSeedCardPress(item)}

@@ -7,7 +7,7 @@ import React, { forwardRef, useCallback, useMemo } from "react";
 import { Text, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import { useGameStore } from "@/store/gameStore";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
@@ -15,7 +15,7 @@ import QuantityStepper from "../QuantityStepper";
 import SectionTitle from "../SectionTitle";
 
 interface BuyPlantBottomSheetProps {
-	plant: PlantItemType | null;
+	plant: SeedItemType | null;
 	quantity: number;
 	onQuantityChange: (value: number) => void;
 	onBuyPress: () => void;

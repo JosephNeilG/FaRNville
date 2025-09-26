@@ -4,13 +4,13 @@ import { Image, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
 import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import { formatSecondsToMinutesSeconds } from "@/helpers/timeHelper";
 import Card from "../card/Card";
 import CardButton from "../card/CardButton";
 
 interface FarmCardProps {
-	item: PlantItemType;
+	item: SeedItemType;
 	onRemovePress: () => void;
 	onHarvestPress: () => void;
 }

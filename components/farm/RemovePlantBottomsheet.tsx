@@ -7,14 +7,14 @@ import React, { forwardRef, useCallback, useMemo } from "react";
 import { View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";
 import Subtitle from "../Subtitle";
 
 interface RemovePlantBottomSheetProps {
-	plant: PlantItemType | null;
+	plant: SeedItemType | null;
 	onRemovePress: () => void;
 }
 

@@ -12,22 +12,22 @@ import BuyPlantBottomSheet from "@/components/shop/BuyPlantBottomSheet";
 import ShopCard from "@/components/shop/ShopCard";
 import Subtitle from "@/components/Subtitle";
 import { COLORS } from "@/constants/Colors";
-import { PLANT_ITEMS } from "@/constants/PlantItems";
-import { PlantItemType } from "@/entities/plant.types";
+import { SEED_ITEMS } from "@/constants/SeedItems";
+import { SeedItemType } from "@/entities/seed.types";
 import { useGameStore } from "@/store/gameStore";
 
 const ShopScreen = () => {
 	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const [open_confirm_modal, setOpenConfirmModal] = useState(false);
 	const [open_success_modal, setOpenSuccessModal] = useState(false);
-	const [selected_plant, setSelectedPlant] = useState<PlantItemType | null>(
+	const [selected_plant, setSelectedPlant] = useState<SeedItemType | null>(
 		null
 	);
 	const [selected_quantity, setSelectedQuantity] = useState(1);
 
 	const buySeed = useGameStore((state) => state.buySeed);
 
-	const handlePresentBuyModalPress = useCallback((plant: PlantItemType) => {
+	const handlePresentBuyModalPress = useCallback((plant: SeedItemType) => {
 		setSelectedPlant(plant);
 		setSelectedQuantity(1);
 		bottom_sheet_ref.current?.present();
@@ -59,7 +59,7 @@ const ShopScreen = () => {
 		setOpenSuccessModal(false);
 	};
 
-	const renderShopCards: ListRenderItem<PlantItemType> = ({ item }) => (
+	const renderShopCards: ListRenderItem<SeedItemType> = ({ item }) => (
 		<ShopCard
 			item={item}
 			onPress={() => handlePresentBuyModalPress(item)}
@@ -73,7 +73,7 @@ const ShopScreen = () => {
 			<SectionTitle title_text="Shop Seeds" />
 
 			<FlatList
-				data={PLANT_ITEMS}
+				data={SEED_ITEMS}
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderShopCards}
 				contentContainerStyle={{ flex: 1 }}

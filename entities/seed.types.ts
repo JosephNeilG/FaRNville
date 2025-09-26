@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from "react-native";
 
-export type PlantItemType = {
+export type SeedItemType = {
 	id: number;
 	name: string;
 	price: number;

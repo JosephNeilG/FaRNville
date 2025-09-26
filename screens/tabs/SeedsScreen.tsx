@@ -6,7 +6,7 @@ import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import EmptySeedsList from "@/components/seeds/EmptySeedsList";
 import SeedsCard from "@/components/seeds/SeedsCard";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "expo-router";
 
@@ -22,7 +22,7 @@ const SeedsScreen = () => {
 		<EmptySeedsList onPress={handleEmptyBtnPress} />
 	);
 
-	const renderSeedsCard: ListRenderItem<PlantItemType> = ({ item }) => (
+	const renderSeedsCard: ListRenderItem<SeedItemType> = ({ item }) => (
 		<SeedsCard item={item} />
 	);
 

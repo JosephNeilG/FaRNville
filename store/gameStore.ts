@@ -1,4 +1,4 @@
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -8,13 +8,13 @@ interface GameState {
 	expenses: number;
 	profit: number;
 
-	seeds: PlantItemType[];
-	farmed_plants: PlantItemType[];
+	seeds: SeedItemType[];
+	farmed_plants: SeedItemType[];
 }
 
 interface GameActions {
-	buySeed: (plant: PlantItemType, quantity: number) => void;
-	plantSeed: (seed: PlantItemType) => void;
+	buySeed: (plant: SeedItemType, quantity: number) => void;
+	plantSeed: (seed: SeedItemType) => void;
 	removeFarmPlant: (farm_plant_id: number) => void;
 
 	reset: () => void;
@@ -71,7 +71,7 @@ export const useGameStore = create<GameStore>()(
 				}
 			},
 
-			plantSeed: (seed: PlantItemType) => {
+			plantSeed: (seed: SeedItemType) => {
 				const current_seeds = get().seeds;
 
 				const seed_index = current_seeds.findIndex(
@@ -89,7 +89,7 @@ export const useGameStore = create<GameStore>()(
 					(seed) => seed.pcs_remaining > 0
 				);
 
-				const new_farmed_plant: PlantItemType = {
+				const new_farmed_plant: SeedItemType = {
 					...seed,
 					pcs_remaining: 1,
 					farm_plant_id: Date.now(),

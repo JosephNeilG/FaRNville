@@ -13,7 +13,7 @@ import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import AddPlantCard from "@/components/shop/AddPlantCard";
 import Subtitle from "@/components/Subtitle";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import { useGameStore } from "@/store/gameStore";
 
 const FarmScreen = () => {
@@ -22,15 +22,12 @@ const FarmScreen = () => {
 	const [open_complete_modal, setOpenCompleteModal] = useState(false);
 	const farmed_plants = useGameStore((state) => state.farmed_plants);
 	const [selected_plant_to_remove, setSelectedPlantToRemove] =
-		useState<PlantItemType | null>(null);
+		useState<SeedItemType | null>(null);
 
-	const handlePresentRemoveModalPress = useCallback(
-		(plant: PlantItemType) => {
-			setSelectedPlantToRemove(plant);
-			remove_bottom_sheet_ref.current?.present();
-		},
-		[]
-	);
+	const handlePresentRemoveModalPress = useCallback((plant: SeedItemType) => {
+		setSelectedPlantToRemove(plant);
+		remove_bottom_sheet_ref.current?.present();
+	}, []);
 
 	const handlePresentAddModalPress = useCallback(() => {
 		add_bottom_sheet_ref.current?.present();
@@ -63,7 +60,7 @@ const FarmScreen = () => {
 		setOpenCompleteModal(false);
 	};
 
-	const renderFarmCards: ListRenderItem<PlantItemType> = ({ item }) => (
+	const renderFarmCards: ListRenderItem<SeedItemType> = ({ item }) => (
 		<FarmCard
 			onRemovePress={() => handlePresentRemoveModalPress(item)}
 			onHarvestPress={handleHarvestPress}

@@ -1,6 +1,6 @@
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 
-export const PLANT_ITEMS: PlantItemType[] = [
+export const SEED_ITEMS: SeedItemType[] = [
 	{
 		id: 1,
 		name: "Carrot",

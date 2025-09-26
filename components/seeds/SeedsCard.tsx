@@ -3,11 +3,11 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
-import { PlantItemType } from "@/entities/plant.types";
+import { SeedItemType } from "@/entities/seed.types";
 import Card from "../card/Card";
 
 interface SeedsCard {
-	item: PlantItemType;
+	item: SeedItemType;
 	is_selected?: boolean;
 	onPress?: () => void;
 }
