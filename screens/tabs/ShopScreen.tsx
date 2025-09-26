@@ -25,7 +25,7 @@ const ShopScreen = () => {
 	);
 	const [selected_quantity, setSelectedQuantity] = useState(1);
 
-	const addSeed = useGameStore((state) => state.buySeed);
+	const buySeed = useGameStore((state) => state.buySeed);
 
 	const handlePresentBuyModalPress = useCallback((plant: PlantItemType) => {
 		setSelectedPlant(plant);
@@ -46,7 +46,7 @@ const ShopScreen = () => {
 
 	const handleAcceptBtnPress = () => {
 		if (selected_plant) {
-			addSeed(selected_plant, selected_quantity);
+			buySeed(selected_plant, selected_quantity);
 		}
 
 		setOpenConfirmModal(false);

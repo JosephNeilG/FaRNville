@@ -13,9 +13,6 @@ interface GameState {
 }
 
 interface GameActions {
-	setEarnings: (value: number) => void;
-	setExpenses: (value: number) => void;
-
 	buySeed: (plant: PlantItemType, quantity: number) => void;
 	plantSeed: (seed: PlantItemType) => void;
 	removeFarmPlant: (farm_plant_id: number) => void;
@@ -38,27 +35,16 @@ export const useGameStore = create<GameStore>()(
 		(set, get) => ({
 			...initial_state,
 
-			setEarnings: (value: number) => {
-				const expenses = get().expenses;
-				set({
-					earnings: value,
-					profit: value - expenses,
-				});
-			},
-
-			setExpenses: (value: number) => {
-				const earnings = get().earnings;
-				set({
-					expenses: value,
-					profit: earnings - value,
-				});
-			},
-
 			buySeed: (plant, quantity) => {
 				const current_seeds = get().seeds;
 				const existing_index = current_seeds.findIndex(
 					(seed) => seed.id === plant.id
 				);
+
+				const total_cost = plant.price * quantity;
+
+				const new_earnings = get().earnings - total_cost;
+				const new_expenses = get().expenses + total_cost;
 
 				if (existing_index >= 0) {
 					const updated_seeds = [...current_seeds];
@@ -68,13 +54,19 @@ export const useGameStore = create<GameStore>()(
 							updated_seeds[existing_index].pcs_remaining +
 							quantity,
 					};
-					set({ seeds: updated_seeds });
+					set({
+						seeds: updated_seeds,
+						earnings: new_earnings,
+						expenses: new_expenses,
+					});
 				} else {
 					set({
 						seeds: [
 							...current_seeds,
 							{ ...plant, pcs_remaining: quantity },
 						],
+						expenses: new_expenses,
+						earnings: new_earnings,
 					});
 				}
 			},
