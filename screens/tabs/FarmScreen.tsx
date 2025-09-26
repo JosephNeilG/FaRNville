@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import React, { useCallback, useRef, useState } from "react";
-import { FlatList, ListRenderItem } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { FlatList, ListRenderItem, View } from "react-native";
 
 import CustomButton from "@/components/CustomButton";
 import CustomModal from "@/components/CustomModal";
@@ -11,8 +11,10 @@ import HeaderContainer from "@/components/HeaderContainer";
 import IconBox from "@/components/IconBox";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
+import FarmCardShimmer from "@/components/shimmers/FarmCardShimmer";
 import AddPlantCard from "@/components/shop/AddPlantCard";
 import Subtitle from "@/components/Subtitle";
+import { SHIMMERS } from "@/constants/Shimmers";
 import { SeedItemType } from "@/entities/seed.types";
 import { useGameStore } from "@/store/gameStore";
 
@@ -26,6 +28,7 @@ const FarmScreen = () => {
 	const [harvested_plant, setHarvestedPlant] = useState<SeedItemType | null>(
 		null
 	);
+	const [loading, setLoading] = useState(true);
 
 	const handlePresentRemoveModalPress = useCallback((plant: SeedItemType) => {
 		setSelectedPlantToRemove(plant);
@@ -76,19 +79,32 @@ const FarmScreen = () => {
 		<AddPlantCard onPress={handlePresentAddModalPress} />
 	);
 
+	useEffect(() => {
+		const timer = setTimeout(() => setLoading(false), 1500);
+		return () => clearTimeout(timer);
+	}, []);
+
 	return (
 		<Screen>
 			<HeaderContainer />
 
 			<SectionTitle title_text="Farm Status" />
 
-			<FlatList
-				data={farmed_plants}
-				keyExtractor={(item) => item.farm_plant_id!.toString()}
-				renderItem={renderFarmCards}
-				ListFooterComponent={renderFooterComponent}
-				contentContainerStyle={{ paddingBottom: 60 }}
-			/>
+			{loading ? (
+				<View>
+					{SHIMMERS.map((index) => (
+						<FarmCardShimmer key={index} />
+					))}
+				</View>
+			) : (
+				<FlatList
+					data={farmed_plants}
+					keyExtractor={(item) => item.farm_plant_id!.toString()}
+					renderItem={renderFarmCards}
+					ListFooterComponent={renderFooterComponent}
+					contentContainerStyle={{ paddingBottom: 60 }}
+				/>
+			)}
 
 			<RemovePlantBottomSheet
 				onRemovePress={handleRemovePress}
