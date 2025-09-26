@@ -37,7 +37,7 @@ const SeedsScreen = () => {
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={renderSeedsCard}
 				ListEmptyComponent={renderEmptySeedsCard}
-				contentContainerStyle={{ paddingBottom: 60 }}
+				contentContainerStyle={{ paddingBottom: 60, flex: 1 }}
 			/>
 		</Screen>
 	);
