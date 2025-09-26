@@ -7,19 +7,21 @@ import React, { forwardRef, useCallback, useMemo } from "react";
 import { View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
+import { PlantItemType } from "@/entities/plant.types";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";
 import Subtitle from "../Subtitle";
 
 interface RemovePlantBottomSheetProps {
+	plant: PlantItemType | null;
 	onRemovePress: () => void;
 }
 
 const RemovePlantBottomSheet = forwardRef<
 	BottomSheetModal,
 	RemovePlantBottomSheetProps
->(({ onRemovePress }, ref) => {
+>(({ plant, onRemovePress }, ref) => {
 	const snap_points = useMemo(() => ["40%"], []);
 
 	const renderBackdrop = useCallback(
@@ -53,7 +55,9 @@ const RemovePlantBottomSheet = forwardRef<
 
 					<SectionTitle title_text="Remove Plant?" />
 
-					<Subtitle subtitle_text="Are you sure you want to remove Carrot?" />
+					<Subtitle
+						subtitle_text={`Are you sure you want to remove ${plant?.name}?`}
+					/>
 				</View>
 
 				<CustomButton

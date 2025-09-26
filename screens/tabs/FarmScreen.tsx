@@ -21,18 +21,32 @@ const FarmScreen = () => {
 	const add_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const [open_complete_modal, setOpenCompleteModal] = useState(false);
 	const farmed_plants = useGameStore((state) => state.farmed_plants);
+	const [selected_plant_to_remove, setSelectedPlantToRemove] =
+		useState<PlantItemType | null>(null);
 
-	const handlePresentRemoveModalPress = useCallback(() => {
-		remove_bottom_sheet_ref.current?.present();
-	}, []);
+	const handlePresentRemoveModalPress = useCallback(
+		(plant: PlantItemType) => {
+			setSelectedPlantToRemove(plant);
+			remove_bottom_sheet_ref.current?.present();
+		},
+		[]
+	);
 
 	const handlePresentAddModalPress = useCallback(() => {
 		add_bottom_sheet_ref.current?.present();
 	}, []);
 
 	const handleRemovePress = () => {
-		console.log("remove pressed");
-		remove_bottom_sheet_ref.current?.dismiss();
+		if (selected_plant_to_remove) {
+			useGameStore
+				.getState()
+				.removeFarmPlant(selected_plant_to_remove.farm_plant_id!);
+
+			remove_bottom_sheet_ref.current?.dismiss();
+			setSelectedPlantToRemove(null);
+
+			console.log(selected_plant_to_remove.name, "Removed");
+		}
 	};
 
 	const handleHarvestPress = () => {
@@ -51,9 +65,9 @@ const FarmScreen = () => {
 
 	const renderFarmCards: ListRenderItem<PlantItemType> = ({ item }) => (
 		<FarmCard
-			item={item}
-			onRemovePress={handlePresentRemoveModalPress}
+			onRemovePress={() => handlePresentRemoveModalPress(item)}
 			onHarvestPress={handleHarvestPress}
+			item={item}
 		/>
 	);
 
@@ -77,6 +91,7 @@ const FarmScreen = () => {
 
 			<RemovePlantBottomSheet
 				onRemovePress={handleRemovePress}
+				plant={selected_plant_to_remove}
 				ref={remove_bottom_sheet_ref}
 			/>
 

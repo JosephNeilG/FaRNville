@@ -18,6 +18,7 @@ interface GameActions {
 
 	buySeed: (plant: PlantItemType, quantity: number) => void;
 	plantSeed: (seed: PlantItemType) => void;
+	removeFarmPlant: (farm_plant_id: number) => void;
 
 	reset: () => void;
 }
@@ -110,6 +111,14 @@ export const useGameStore = create<GameStore>()(
 					seeds: filtered_seeds,
 					farmed_plants: updated_farmed_plants,
 				});
+			},
+
+			removeFarmPlant: (farm_plant_id) => {
+				set((state) => ({
+					farmed_plants: state.farmed_plants.filter(
+						(plant) => plant.farm_plant_id !== farm_plant_id
+					),
+				}));
 			},
 
 			reset: () => {
