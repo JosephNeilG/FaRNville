@@ -23,6 +23,9 @@ const FarmScreen = () => {
 	const farmed_plants = useGameStore((state) => state.farmed_plants);
 	const [selected_plant_to_remove, setSelectedPlantToRemove] =
 		useState<SeedItemType | null>(null);
+	const [harvested_plant, setHarvestedPlant] = useState<SeedItemType | null>(
+		null
+	);
 
 	const handlePresentRemoveModalPress = useCallback((plant: SeedItemType) => {
 		setSelectedPlantToRemove(plant);
@@ -46,14 +49,15 @@ const FarmScreen = () => {
 		}
 	};
 
-	const handleHarvestPress = () => {
-		console.log("harvest pressed");
+	const handleHarvestPress = (plant: SeedItemType) => {
+		useGameStore.getState().harvestFarmPlant(plant.farm_plant_id!);
+		setHarvestedPlant(plant);
 		setOpenCompleteModal(true);
 	};
 
 	const handleAcceptHarvestPress = () => {
-		console.log("accept pressed");
 		setOpenCompleteModal(false);
+		setHarvestedPlant(null);
 	};
 
 	const handleBackdropPress = () => {
@@ -63,7 +67,7 @@ const FarmScreen = () => {
 	const renderFarmCards: ListRenderItem<SeedItemType> = ({ item }) => (
 		<FarmCard
 			onRemovePress={() => handlePresentRemoveModalPress(item)}
-			onHarvestPress={handleHarvestPress}
+			onHarvestPress={() => handleHarvestPress(item)}
 			item={item}
 		/>
 	);
@@ -100,7 +104,15 @@ const FarmScreen = () => {
 				<IconBox icon_name="check" />
 
 				<SectionTitle title_text="Harvest Complete!" />
-				<Subtitle subtitle_text="You earned $5.00 by harvesting Carrot." />
+				<Subtitle
+					subtitle_text={
+						harvested_plant
+							? `You earned $${harvested_plant.profit.toFixed(
+									2
+							  )} by harvesting ${harvested_plant.name}.`
+							: ""
+					}
+				/>
 
 				<CustomButton
 					onPress={handleAcceptHarvestPress}

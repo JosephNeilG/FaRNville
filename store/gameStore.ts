@@ -16,6 +16,7 @@ interface GameActions {
 	buySeed: (plant: SeedItemType, quantity: number) => void;
 	plantSeed: (seed: SeedItemType) => void;
 	removeFarmPlant: (farm_plant_id: number) => void;
+	harvestFarmPlant: (farm_plant_id: number) => void;
 
 	reset: () => void;
 }
@@ -105,12 +106,36 @@ export const useGameStore = create<GameStore>()(
 				});
 			},
 
-			removeFarmPlant: (farm_plant_id) => {
+			removeFarmPlant: (farm_plant_id: number) => {
 				set((state) => ({
 					farmed_plants: state.farmed_plants.filter(
 						(plant) => plant.farm_plant_id !== farm_plant_id
 					),
 				}));
+			},
+
+			harvestFarmPlant: (farm_plant_id: number) => {
+				const farmed_plants = get().farmed_plants;
+				const plant_to_harvest = farmed_plants.find(
+					(plant) => plant.farm_plant_id === farm_plant_id
+				);
+
+				if (!plant_to_harvest) return;
+
+				const new_earnings = get().earnings + plant_to_harvest.profit;
+				const new_expenses = get().expenses;
+				const new_profit = new_earnings - new_expenses;
+
+				const updated_farmed_plants = farmed_plants.filter(
+					(plant) => plant.farm_plant_id !== farm_plant_id
+				);
+
+				set({
+					earnings: new_earnings,
+					expenses: new_expenses,
+					profit: new_profit,
+					farmed_plants: updated_farmed_plants,
+				});
 			},
 
 			reset: () => {
