@@ -13,14 +13,14 @@ import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import AddPlantCard from "@/components/shop/AddPlantCard";
 import Subtitle from "@/components/Subtitle";
-import { PLANT_ITEMS } from "@/constants/PlantItems";
 import { PlantItemType } from "@/entities/plant.types";
+import { useGameStore } from "@/store/gameStore";
 
 const FarmScreen = () => {
-	const [open_complete_modal, setOpenCompleteModal] = useState(false);
-
 	const remove_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const add_bottom_sheet_ref = useRef<BottomSheetModal>(null);
+	const [open_complete_modal, setOpenCompleteModal] = useState(false);
+	const farmed_plants = useGameStore((state) => state.farmed_plants);
 
 	const handlePresentRemoveModalPress = useCallback(() => {
 		remove_bottom_sheet_ref.current?.present();
@@ -49,11 +49,6 @@ const FarmScreen = () => {
 		setOpenCompleteModal(false);
 	};
 
-	const handleAddPlantPress = () => {
-		console.log("add plant pressed");
-		add_bottom_sheet_ref.current?.dismiss();
-	};
-
 	const renderFarmCards: ListRenderItem<PlantItemType> = ({ item }) => (
 		<FarmCard
 			item={item}
@@ -73,11 +68,11 @@ const FarmScreen = () => {
 			<SectionTitle title_text="Farm Status" />
 
 			<FlatList
-				data={PLANT_ITEMS}
-				keyExtractor={(item) => item.id.toString()}
+				data={farmed_plants}
+				keyExtractor={(item) => item.farm_plant_id!.toString()}
 				renderItem={renderFarmCards}
 				ListFooterComponent={renderFooterComponent}
-				contentContainerStyle={{ flex: 1 }}
+				contentContainerStyle={{ paddingBottom: 60 }}
 			/>
 
 			<RemovePlantBottomSheet
@@ -85,10 +80,7 @@ const FarmScreen = () => {
 				ref={remove_bottom_sheet_ref}
 			/>
 
-			<AddPlantBottomSheet
-				onAddPlantPress={handleAddPlantPress}
-				ref={add_bottom_sheet_ref}
-			/>
+			<AddPlantBottomSheet ref={add_bottom_sheet_ref} />
 
 			<CustomModal
 				onClose={handleBackdropPress}

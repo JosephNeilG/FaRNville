@@ -9,7 +9,7 @@ import Card from "../card/Card";
 interface SeedsCard {
 	item: PlantItemType;
 	is_selected?: boolean;
-	onPress: () => void;
+	onPress?: () => void;
 }
 
 const SeedsCard = ({ item, is_selected, onPress }: SeedsCard) => {

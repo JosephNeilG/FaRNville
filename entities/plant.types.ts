@@ -10,4 +10,5 @@ export type PlantItemType = {
 	pcs_remaining: number;
 	harvest_countdown: number;
 	progress: number;
+	farm_plant_id?: number;
 };

@@ -17,7 +17,7 @@ import EmptySeedsList from "../seeds/EmptySeedsList";
 import SeedsCard from "../seeds/SeedsCard";
 
 interface RemovePlantBottomSheetProps {
-	onAddPlantPress: () => void;
+	onAddPlantPress?: () => void;
 }
 
 const AddPlantBottomSheet = forwardRef<
@@ -61,8 +61,11 @@ const AddPlantBottomSheet = forwardRef<
 
 	const handleAddPlantPress = () => {
 		if (selected_seed_card) {
-			onAddPlantPress();
+			useGameStore.getState().plantSeed(selected_seed_card);
+
 			setSelectedSeedCard(null);
+
+			handleDismiss();
 		}
 	};
 
@@ -96,7 +99,7 @@ const AddPlantBottomSheet = forwardRef<
 					keyExtractor={(item) => item.id.toString()}
 					renderItem={renderSeedsCard}
 					ListEmptyComponent={renderEmptySeedsCard}
-					contentContainerStyle={{ flex: 1, paddingVertical: 10 }}
+					contentContainerStyle={{ paddingVertical: 10 }}
 				/>
 
 				{seeds.length > 0 && (

@@ -19,7 +19,7 @@ const EmptySeedsList = ({ onPress }: EmptySeedsListProps) => {
 				icon_color={COLORS.dark[300]}
 			/>
 			<SectionTitle title_text="No Seeds Yet " />
-			<Subtitle subtitle_text="Buy plants from the shop to start your farm." />
+			<Subtitle subtitle_text="Buy from the shop to start your farm." />
 
 			<CustomButton
 				button_text="Go to Shop"
