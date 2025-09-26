@@ -3,7 +3,7 @@ import {
 	BottomSheetModal,
 	BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import React, { forwardRef, useCallback, useMemo } from "react";
+import React, { forwardRef, RefObject, useCallback, useMemo } from "react";
 import { Text, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
@@ -41,7 +41,7 @@ const BuyPlantBottomSheet = forwardRef<
 	);
 
 	const handleDismiss = useCallback(() => {
-		(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss();
+		(ref as RefObject<BottomSheetModal>)?.current?.dismiss();
 	}, []);
 
 	if (!plant) return;

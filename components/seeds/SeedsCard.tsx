@@ -4,6 +4,7 @@ import { Image, Text, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 import { SeedItemType } from "@/entities/seed.types";
+import { formatSecondsToMinutes } from "@/helpers/timeHelper";
 import Card from "../card/Card";
 
 interface SeedsCard {
@@ -14,7 +15,7 @@ interface SeedsCard {
 
 const SeedsCard = ({ item, is_selected, onPress }: SeedsCard) => {
 	const pcs_remaining_label =
-		item.pcs_remaining > 1 ? "pcs remaining" : "pc remaining";
+		item.pcs_remaining! > 1 ? "pcs remaining" : "pc remaining";
 
 	return (
 		<Card onPress={onPress} is_selected={is_selected}>
@@ -31,7 +32,8 @@ const SeedsCard = ({ item, is_selected, onPress }: SeedsCard) => {
 							{item.pcs_remaining + pcs_remaining_label}
 						</Text>
 						<Text className="text-dark-100 mt-2">
-							Harvest in {item.harvest_time}m
+							Harvest in{" "}
+							{formatSecondsToMinutes(item.harvest_duration)}
 						</Text>
 					</View>
 				</View>

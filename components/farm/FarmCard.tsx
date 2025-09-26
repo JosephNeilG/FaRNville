@@ -1,5 +1,5 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
@@ -16,7 +16,30 @@ interface FarmCardProps {
 }
 
 const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
-	const is_ready_to_harvest = item.harvest_countdown === 0;
+	const [time_left, setTimeLeft] = useState(item.harvest_duration);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (item.planted_at_time) {
+				const now = Date.now();
+				const elapsed_sec = Math.floor(
+					(now - item.planted_at_time) / 1000
+				);
+				const remaining = Math.max(
+					item.harvest_duration - elapsed_sec,
+					0
+				);
+
+				setTimeLeft(remaining);
+			}
+		}, 1000);
+
+		return () => clearInterval(interval);
+	}, [item.planted_at_time]);
+
+	const progress = 1 - time_left / item.harvest_duration;
+	const is_ready_to_harvest = time_left === 0;
+
 	return (
 		<Card>
 			<View className="flex-row justify-between mb-3">
@@ -36,9 +59,7 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 						) : (
 							<Text className="text-dark-300 text-lg">
 								Harvest in{" "}
-								{formatSecondsToMinutesSeconds(
-									item.harvest_countdown
-								)}
+								{formatSecondsToMinutesSeconds(time_left)}
 							</Text>
 						)}
 					</View>
@@ -79,12 +100,12 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 			</View>
 
 			<Progress.Bar
-				progress={item.progress}
+				progress={progress}
 				width={null}
 				color={
-					item.progress < 0.33
+					progress < 0.33
 						? COLORS.progress.low
-						: item.progress < 1
+						: progress < 1
 						? COLORS.progress.medium
 						: COLORS.primary
 				}

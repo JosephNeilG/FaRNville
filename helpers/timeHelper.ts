@@ -6,3 +6,9 @@ export const formatSecondsToMinutesSeconds = (
 
 	return `${minutes}m ${seconds}s`;
 };
+
+export const formatSecondsToMinutes = (total_seconds: number): string => {
+	const minutes = Math.floor(total_seconds / 60);
+
+	return `${minutes}m `;
+};

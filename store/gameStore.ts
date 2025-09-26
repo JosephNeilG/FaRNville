@@ -52,7 +52,7 @@ export const useGameStore = create<GameStore>()(
 					updated_seeds[existing_index] = {
 						...updated_seeds[existing_index],
 						pcs_remaining:
-							updated_seeds[existing_index].pcs_remaining +
+							updated_seeds[existing_index].pcs_remaining! +
 							quantity,
 					};
 					set({
@@ -83,17 +83,18 @@ export const useGameStore = create<GameStore>()(
 				const updated_seeds = [...current_seeds];
 				updated_seeds[seed_index] = {
 					...updated_seeds[seed_index],
-					pcs_remaining: updated_seeds[seed_index].pcs_remaining - 1,
+					pcs_remaining: updated_seeds[seed_index].pcs_remaining! - 1,
 				};
 
 				const filtered_seeds = updated_seeds.filter(
-					(seed) => seed.pcs_remaining > 0
+					(seed) => seed.pcs_remaining! > 0
 				);
 
 				const new_farmed_plant: SeedItemType = {
 					...seed,
-					pcs_remaining: 1,
 					farm_plant_id: Date.now(),
+					planted_at_time: Date.now(),
+					harvest_duration: seed.harvest_duration,
 				};
 				const updated_farmed_plants = [
 					...get().farmed_plants,

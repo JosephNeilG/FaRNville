@@ -4,6 +4,7 @@ import { Image, Text, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 import { SeedItemType } from "@/entities/seed.types";
+import { formatSecondsToMinutes } from "@/helpers/timeHelper";
 import Card from "../card/Card";
 
 interface ShopCardProps {
@@ -30,7 +31,8 @@ const ShopCard = ({ item, onPress }: ShopCardProps) => {
 							</Text>
 						</Text>
 						<Text className="text-dark-100 mt-2">
-							Harvest in {item.harvest_time}m
+							Harvest in{" "}
+							{formatSecondsToMinutes(item.harvest_duration)}
 						</Text>
 					</View>
 				</View>

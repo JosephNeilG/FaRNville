@@ -4,7 +4,13 @@ import {
 	BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
-import React, { forwardRef, useCallback, useMemo } from "react";
+import React, {
+	forwardRef,
+	RefObject,
+	useCallback,
+	useMemo,
+	useState,
+} from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
@@ -28,7 +34,7 @@ const AddPlantBottomSheet = forwardRef<
 	const snap_points = useMemo(() => ["80%"], []);
 	const seeds = useGameStore((state) => state.seeds);
 	const [selected_seed_card, setSelectedSeedCard] =
-		React.useState<SeedItemType | null>(null);
+		useState<SeedItemType | null>(null);
 	const is_plant_now_btn_disabled = !selected_seed_card;
 
 	const renderBackdrop = useCallback(
@@ -43,7 +49,7 @@ const AddPlantBottomSheet = forwardRef<
 	);
 
 	const handleDismiss = useCallback(() => {
-		(ref as React.RefObject<BottomSheetModal>)?.current?.dismiss();
+		(ref as RefObject<BottomSheetModal>)?.current?.dismiss();
 	}, []);
 
 	const handleEmptyBtnPress = () => {
