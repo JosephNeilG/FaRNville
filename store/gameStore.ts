@@ -28,7 +28,7 @@ interface GameActions {
 type GameStore = GameState & GameActions;
 
 const initial_state: GameState = {
-	earnings: 100,
+	earnings: 10,
 	expenses: 0,
 	profit: 0,
 

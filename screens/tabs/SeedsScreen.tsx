@@ -17,6 +17,9 @@ const SeedsScreen = () => {
 	const [loading, setLoading] = useState(true);
 
 	const seeds = useGameStore((state) => state.seeds);
+	const seeds_count = seeds.reduce((total, seeds) => {
+		return total + seeds.pcs_remaining!;
+	}, 0);
 
 	const handleEmptyBtnPress = () => {
 		router.replace("/(tabs)/shop");
@@ -39,7 +42,7 @@ const SeedsScreen = () => {
 		<Screen>
 			<HeaderContainer />
 
-			<SectionTitle title_text="Available Seeds" />
+			<SectionTitle title_text={`Available Seeds (${seeds_count})`} />
 
 			{loading ? (
 				<View>
