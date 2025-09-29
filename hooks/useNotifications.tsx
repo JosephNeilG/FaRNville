@@ -26,7 +26,7 @@ const NotificationsProvider = ({ children }: NotificationProviderProps) => {
 
 			Notifications.setNotificationHandler({
 				handleNotification: async () => ({
-					shouldPlaySound: false,
+					shouldPlaySound: true,
 					shouldSetBadge: false,
 					shouldShowBanner: true,
 					shouldShowList: true,

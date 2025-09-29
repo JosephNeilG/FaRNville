@@ -74,6 +74,7 @@ const AddPlantBottomSheet = forwardRef<
 				content: {
 					title: "Harvest Ready!",
 					body: `Your ${selected_seed_card.name} is ready to harvest.`,
+					sound: true,
 				},
 				trigger: {
 					type: Notifications.SchedulableTriggerInputTypes
