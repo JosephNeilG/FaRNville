@@ -16,9 +16,11 @@ import AddPlantCard from "@/components/shop/AddPlantCard";
 import Subtitle from "@/components/Subtitle";
 import { SHIMMERS } from "@/constants/Shimmers";
 import { SeedItemType } from "@/entities/seed.types";
+import { useNotifications } from "@/hooks/useNotifications";
 import { useGameStore } from "@/store/gameStore";
 
 const FarmScreen = () => {
+	const { cancelNotificationAsync } = useNotifications();
 	const remove_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const add_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const [open_complete_modal, setOpenCompleteModal] = useState(false);
@@ -42,6 +44,8 @@ const FarmScreen = () => {
 
 	const handleRemovePress = () => {
 		if (selected_plant_to_remove) {
+			cancelNotificationAsync(selected_plant_to_remove.notification_id!);
+
 			useGameStore
 				.getState()
 				.removeFarmPlant(selected_plant_to_remove.farm_plant_id!);

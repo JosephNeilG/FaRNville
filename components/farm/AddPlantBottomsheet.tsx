@@ -3,6 +3,7 @@ import {
 	BottomSheetModal,
 	BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
 import React, {
 	forwardRef,
@@ -15,6 +16,7 @@ import { FlatList, ListRenderItem, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 import { SeedItemType } from "@/entities/seed.types";
+import { useNotifications } from "@/hooks/useNotifications";
 import { useGameStore } from "@/store/gameStore";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
@@ -31,6 +33,7 @@ const AddPlantBottomSheet = forwardRef<
 	RemovePlantBottomSheetProps
 >(({ onAddPlantPress }, ref) => {
 	const router = useRouter();
+	const { scheduleNotificationAsync } = useNotifications();
 	const snap_points = useMemo(() => ["80%"], []);
 	const seeds = useGameStore((state) => state.seeds);
 	const [selected_seed_card, setSelectedSeedCard] =
@@ -65,12 +68,25 @@ const AddPlantBottomSheet = forwardRef<
 		}
 	};
 
-	const handleAddPlantPress = () => {
+	const handleAddPlantPress = async () => {
 		if (selected_seed_card) {
-			useGameStore.getState().plantSeed(selected_seed_card);
+			const notification_id = await scheduleNotificationAsync({
+				content: {
+					title: "Harvest Ready!",
+					body: `Your ${selected_seed_card.name} is ready to harvest.`,
+				},
+				trigger: {
+					type: Notifications.SchedulableTriggerInputTypes
+						.TIME_INTERVAL,
+					seconds: selected_seed_card.harvest_duration,
+				},
+			});
+
+			useGameStore
+				.getState()
+				.plantSeed(selected_seed_card, notification_id);
 
 			setSelectedSeedCard(null);
-
 			handleDismiss();
 		}
 	};

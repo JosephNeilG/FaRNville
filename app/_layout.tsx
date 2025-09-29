@@ -1,3 +1,4 @@
+import { NotificationsProvider } from "@/hooks/useNotifications";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Stack } from "expo-router";
 import React from "react";
@@ -9,12 +10,14 @@ export default function RootLayout() {
 	return (
 		<GestureHandlerRootView>
 			<BottomSheetModalProvider>
-				<Stack>
-					<Stack.Screen
-						name="(tabs)"
-						options={{ headerShown: false }}
-					/>
-				</Stack>
+				<NotificationsProvider>
+					<Stack>
+						<Stack.Screen
+							name="(tabs)"
+							options={{ headerShown: false }}
+						/>
+					</Stack>
+				</NotificationsProvider>
 			</BottomSheetModalProvider>
 		</GestureHandlerRootView>
 	);

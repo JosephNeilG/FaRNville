@@ -11,4 +11,5 @@ export type SeedItemType = {
 	progress?: number;
 	farm_plant_id?: number;
 	planted_at_time?: number;
+	notification_id?: string;
 };

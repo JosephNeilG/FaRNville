@@ -14,7 +14,7 @@ interface GameState {
 
 interface GameActions {
 	buySeed: (plant: SeedItemType, quantity: number) => void;
-	plantSeed: (seed: SeedItemType) => void;
+	plantSeed: (seed: SeedItemType, notification_id: string) => void;
 	removeFarmPlant: (farm_plant_id: number) => void;
 	harvestFarmPlant: (farm_plant_id: number) => void;
 
@@ -72,7 +72,7 @@ export const useGameStore = create<GameStore>()(
 				}
 			},
 
-			plantSeed: (seed: SeedItemType) => {
+			plantSeed: (seed: SeedItemType, notification_id: string) => {
 				const current_seeds = get().seeds;
 
 				const seed_index = current_seeds.findIndex(
@@ -95,6 +95,7 @@ export const useGameStore = create<GameStore>()(
 					farm_plant_id: Date.now(),
 					planted_at_time: Date.now(),
 					harvest_duration: seed.harvest_duration,
+					notification_id: notification_id,
 				};
 				const updated_farmed_plants = [
 					...get().farmed_plants,
