@@ -14,7 +14,11 @@ interface GameState {
 
 interface GameActions {
 	buySeed: (plant: SeedItemType, quantity: number) => void;
-	plantSeed: (seed: SeedItemType, notification_id: string) => void;
+	plantSeed: (
+		seed: SeedItemType,
+		notification_id: string,
+		farm_plant_id: number
+	) => void;
 	removeFarmPlant: (farm_plant_id: number) => void;
 	harvestFarmPlant: (farm_plant_id: number) => void;
 
@@ -24,7 +28,7 @@ interface GameActions {
 type GameStore = GameState & GameActions;
 
 const initial_state: GameState = {
-	earnings: 10,
+	earnings: 100,
 	expenses: 0,
 	profit: 0,
 
@@ -72,7 +76,11 @@ export const useGameStore = create<GameStore>()(
 				}
 			},
 
-			plantSeed: (seed: SeedItemType, notification_id: string) => {
+			plantSeed: (
+				seed: SeedItemType,
+				notification_id: string,
+				farm_plant_id: number
+			) => {
 				const current_seeds = get().seeds;
 
 				const seed_index = current_seeds.findIndex(
@@ -92,19 +100,15 @@ export const useGameStore = create<GameStore>()(
 
 				const new_farmed_plant: SeedItemType = {
 					...seed,
-					farm_plant_id: Date.now(),
+					farm_plant_id: farm_plant_id,
 					planted_at_time: Date.now(),
 					harvest_duration: seed.harvest_duration,
 					notification_id: notification_id,
 				};
-				const updated_farmed_plants = [
-					...get().farmed_plants,
-					new_farmed_plant,
-				];
 
 				set({
 					seeds: filtered_seeds,
-					farmed_plants: updated_farmed_plants,
+					farmed_plants: [...get().farmed_plants, new_farmed_plant],
 				});
 			},
 

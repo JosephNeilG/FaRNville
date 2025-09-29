@@ -70,11 +70,15 @@ const AddPlantBottomSheet = forwardRef<
 
 	const handleAddPlantPress = async () => {
 		if (selected_seed_card) {
+			const farm_plant_id = Date.now();
+
 			const notification_id = await scheduleNotificationAsync({
 				content: {
 					title: "Harvest Ready!",
 					body: `Your ${selected_seed_card.name} is ready to harvest.`,
 					sound: true,
+					categoryIdentifier: "harvest",
+					data: { farm_plant_id: farm_plant_id },
 				},
 				trigger: {
 					type: Notifications.SchedulableTriggerInputTypes
@@ -85,7 +89,7 @@ const AddPlantBottomSheet = forwardRef<
 
 			useGameStore
 				.getState()
-				.plantSeed(selected_seed_card, notification_id);
+				.plantSeed(selected_seed_card, notification_id, farm_plant_id);
 
 			setSelectedSeedCard(null);
 			handleDismiss();

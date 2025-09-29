@@ -1,4 +1,6 @@
+import { useGameStore } from "@/store/gameStore";
 import * as Notifications from "expo-notifications";
+import { useRouter } from "expo-router";
 import React, { createContext, ReactNode, useContext, useEffect } from "react";
 
 interface NotificationsContextType {
@@ -17,12 +19,32 @@ const NotificationsContext = createContext<
 >(undefined);
 
 const NotificationsProvider = ({ children }: NotificationProviderProps) => {
+	const router = useRouter();
+
 	useEffect(() => {
 		const configureNotificationsAsync = async () => {
 			const { granted } = await Notifications.requestPermissionsAsync();
 			if (!granted) {
 				return console.warn("Notification Permission not granted.");
 			}
+
+			Notifications.setNotificationCategoryAsync("harvest", [
+				{
+					buttonTitle: "Harvest Now",
+					identifier: "harvest_now",
+					options: { opensAppToForeground: false },
+				},
+				{
+					buttonTitle: "Plant Again",
+					identifier: "plant_again",
+					options: { opensAppToForeground: true },
+				},
+				{
+					buttonTitle: "Later",
+					identifier: "later",
+					options: { opensAppToForeground: false },
+				},
+			]);
 
 			Notifications.setNotificationHandler({
 				handleNotification: async () => ({
@@ -33,6 +55,23 @@ const NotificationsProvider = ({ children }: NotificationProviderProps) => {
 				}),
 			});
 		};
+
+		Notifications.addNotificationResponseReceivedListener((response) => {
+			const { actionIdentifier, notification } = response;
+			const farm_plant_id =
+				notification.request.content.data.farm_plant_id;
+
+			if (actionIdentifier === "harvest_now") {
+				useGameStore
+					.getState()
+					.harvestFarmPlant(farm_plant_id as number);
+			} else if (actionIdentifier === "plant_another") {
+				router.replace("/");
+			} else if (actionIdentifier === "later") {
+				console.log("pressed later");
+			}
+		});
+
 		configureNotificationsAsync();
 	}, []);
 
