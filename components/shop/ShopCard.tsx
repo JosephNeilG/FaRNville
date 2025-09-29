@@ -1,11 +1,11 @@
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React from "react";
 import { Image, Text, View } from "react-native";
 
-import { COLORS } from "@/constants/Colors";
 import { SeedItemType } from "@/entities/seed.types";
 import { formatSecondsToMinutes } from "@/helpers/timeHelper";
 import Card from "../card/Card";
+import CardProfit from "../card/CardProfit";
+import CardTitle from "../card/CardTitle";
 
 interface ShopCardProps {
 	item: SeedItemType;
@@ -23,7 +23,7 @@ const ShopCard = ({ item, onPress }: ShopCardProps) => {
 					/>
 
 					<View>
-						<Text className="text-xl font-medium">{item.name}</Text>
+						<CardTitle title_text={item.name} />
 						<Text className="font-medium text-lg">
 							${item.price.toFixed(2)}/
 							<Text className="font-normal text-dark-300">
@@ -37,19 +37,7 @@ const ShopCard = ({ item, onPress }: ShopCardProps) => {
 					</View>
 				</View>
 
-				<View>
-					<Text className="text-right text-dark-100">Profit</Text>
-					<View className="flex-row items-center justify-end gap-2">
-						<FontAwesome6
-							name="arrow-up"
-							size={15}
-							color={COLORS.primary}
-						/>
-						<Text className="text-primary text-lg font-medium">
-							${item.profit.toFixed(2)}
-						</Text>
-					</View>
-				</View>
+				<CardProfit profit={item.profit} />
 			</View>
 		</Card>
 	);

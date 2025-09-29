@@ -1,4 +1,3 @@
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
@@ -8,6 +7,8 @@ import { SeedItemType } from "@/entities/seed.types";
 import { formatSecondsToMinutesSeconds } from "@/helpers/timeHelper";
 import Card from "../card/Card";
 import CardButton from "../card/CardButton";
+import CardProfit from "../card/CardProfit";
+import CardTitle from "../card/CardTitle";
 
 interface FarmCardProps {
 	item: SeedItemType;
@@ -50,14 +51,12 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 					/>
 
 					<View>
-						<Text className="text-xl font-medium">{item.name}</Text>
+						<CardTitle title_text={item.name} />
 
 						{is_ready_to_harvest ? (
-							<Text className="text-dark-300 text-lg">
-								Harvest now!
-							</Text>
+							<Text className={subtitle_style}>Harvest now!</Text>
 						) : (
-							<Text className="text-dark-300 text-lg">
+							<Text className={subtitle_style}>
 								Harvest in{" "}
 								{formatSecondsToMinutesSeconds(time_left)}
 							</Text>
@@ -83,18 +82,11 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 					)}
 
 					{is_ready_to_harvest && (
-						<View className="mt-2">
-							<View className="flex-row items-center justify-end gap-2">
-								<FontAwesome6
-									name="arrow-up"
-									size={15}
-									color={COLORS.primary}
-								/>
-								<Text className="text-primary text-lg font-medium">
-									${item.profit.toFixed(2)}
-								</Text>
-							</View>
-						</View>
+						<CardProfit
+							profit={item.profit}
+							show_header={false}
+							style={{ marginTop: 7 }}
+						/>
 					)}
 				</View>
 			</View>
@@ -117,5 +109,7 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 		</Card>
 	);
 };
+
+const subtitle_style = "text-dark-300 text-lg";
 
 export default FarmCard;
