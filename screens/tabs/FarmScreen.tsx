@@ -22,13 +22,14 @@ const FarmScreen = () => {
 	const remove_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const add_bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const [open_complete_modal, setOpenCompleteModal] = useState(false);
+	const [loading, setLoading] = useState(true);
+
 	const farmed_plants = useGameStore((state) => state.farmed_plants);
 	const [selected_plant_to_remove, setSelectedPlantToRemove] =
 		useState<SeedItemType | null>(null);
 	const [harvested_plant, setHarvestedPlant] = useState<SeedItemType | null>(
 		null
 	);
-	const [loading, setLoading] = useState(true);
 
 	const handlePresentRemoveModalPress = useCallback((plant: SeedItemType) => {
 		setSelectedPlantToRemove(plant);

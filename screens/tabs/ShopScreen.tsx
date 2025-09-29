@@ -22,11 +22,12 @@ const ShopScreen = () => {
 	const bottom_sheet_ref = useRef<BottomSheetModal>(null);
 	const [open_confirm_modal, setOpenConfirmModal] = useState(false);
 	const [open_success_modal, setOpenSuccessModal] = useState(false);
+	const [loading, setLoading] = useState(true);
+
 	const [selected_plant, setSelectedPlant] = useState<SeedItemType | null>(
 		null
 	);
 	const [selected_quantity, setSelectedQuantity] = useState(1);
-	const [loading, setLoading] = useState(true);
 
 	const buySeed = useGameStore((state) => state.buySeed);
 
@@ -43,10 +44,6 @@ const ShopScreen = () => {
 		bottom_sheet_ref.current?.dismiss();
 	};
 
-	const handleConfirmModalDismiss = () => setOpenConfirmModal(false);
-
-	const handleSuccessModalDismiss = () => setOpenSuccessModal(false);
-
 	const handleAcceptBtnPress = () => {
 		if (selected_plant) {
 			buySeed(selected_plant, selected_quantity);
@@ -56,16 +53,14 @@ const ShopScreen = () => {
 		setOpenSuccessModal(true);
 	};
 
-	const handleGotItBtnPress = () => {
-		console.log("got it pressed");
-
-		setOpenSuccessModal(false);
-	};
+	const handleConfirmModalDismiss = () => setOpenConfirmModal(false);
+	const handleSuccessModalDismiss = () => setOpenSuccessModal(false);
+	const handleGotItBtnPress = () => setOpenSuccessModal(false);
 
 	const renderShopCards: ListRenderItem<SeedItemType> = ({ item }) => (
 		<ShopCard
-			item={item}
 			onPress={() => handlePresentBuyModalPress(item)}
+			item={item}
 		/>
 	);
 

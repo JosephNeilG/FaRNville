@@ -14,8 +14,9 @@ import { useRouter } from "expo-router";
 
 const SeedsScreen = () => {
 	const router = useRouter();
-	const seeds = useGameStore((state) => state.seeds);
 	const [loading, setLoading] = useState(true);
+
+	const seeds = useGameStore((state) => state.seeds);
 
 	const handleEmptyBtnPress = () => {
 		router.replace("/(tabs)/shop");
