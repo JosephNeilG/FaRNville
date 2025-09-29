@@ -1,4 +1,5 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import pluralize from "pluralize";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FlatList, ListRenderItem, View } from "react-native";
 
@@ -69,6 +70,12 @@ const ShopScreen = () => {
 		return () => clearTimeout(timer);
 	}, []);
 
+	const pluralize_plant_name = pluralize(
+		selected_plant?.name ?? "",
+		selected_quantity
+	);
+	const total_cost = (selected_plant?.price! * selected_quantity).toFixed(2);
+
 	return (
 		<Screen>
 			<HeaderContainer />
@@ -105,11 +112,7 @@ const ShopScreen = () => {
 
 				<SectionTitle title_text="Confirm Purchase?" />
 				<Subtitle
-					subtitle_text={`Buy ${selected_quantity} ${
-						selected_plant?.name
-					}(s) for $${(
-						(selected_plant?.price || 0) * selected_quantity
-					).toFixed(2)}?`}
+					subtitle_text={`Buy ${selected_quantity} ${pluralize_plant_name} for $${total_cost}?`}
 				/>
 
 				<CustomButton
@@ -131,7 +134,9 @@ const ShopScreen = () => {
 
 				<SectionTitle title_text="Purchase Successful!" />
 				<Subtitle
-					subtitle_text={`You bought ${selected_quantity} ${selected_plant?.name}(s). They're now in your Seeds.`}
+					subtitle_text={`You bought ${selected_quantity} ${pluralize_plant_name}. ${
+						selected_quantity > 1 ? "They're" : "It's"
+					} now in your Seeds.`}
 				/>
 
 				<CustomButton
