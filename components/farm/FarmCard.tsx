@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import * as Progress from "react-native-progress";
@@ -42,71 +43,97 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 	const is_ready_to_harvest = time_left === 0;
 
 	return (
-		<Card>
-			<View className="flex-row justify-between mb-3">
-				<View className="flex-row items-center gap-3">
-					<Image
-						source={item.image}
-						className="w-[70px] h-[70px] rounded-xl"
-					/>
+		<Link href="/" asChild>
+			<Link.Trigger>
+				<Card>
+					<View className="flex-row justify-between mb-3">
+						<View className="flex-row items-center gap-3">
+							<Image
+								source={item.image}
+								className="w-[70px] h-[70px] rounded-xl"
+							/>
 
-					<View>
-						<CardTitle title_text={item.name} />
+							<View>
+								<CardTitle title_text={item.name} />
 
-						{is_ready_to_harvest ? (
-							<Text className={subtitle_style}>Harvest now!</Text>
-						) : (
-							<Text className={subtitle_style}>
-								Harvest in{" "}
-								{formatSecondsToMinutesSeconds(time_left)}
-							</Text>
-						)}
+								{is_ready_to_harvest ? (
+									<Text className={subtitle_style}>
+										Harvest now!
+									</Text>
+								) : (
+									<Text className={subtitle_style}>
+										Harvest in{" "}
+										{formatSecondsToMinutesSeconds(
+											time_left
+										)}
+									</Text>
+								)}
+							</View>
+						</View>
+
+						<View>
+							{is_ready_to_harvest ? (
+								<CardButton
+									onPress={onHarvestPress}
+									bg_color={COLORS.primary}
+									icon="check"
+									label="Harvest"
+								/>
+							) : (
+								<CardButton
+									onPress={onRemovePress}
+									bg_color={COLORS.danger}
+									icon="xmark"
+									label="Remove"
+								/>
+							)}
+
+							{is_ready_to_harvest && (
+								<CardProfit
+									profit={item.profit}
+									show_header={false}
+									style={{ marginTop: 7 }}
+								/>
+							)}
+						</View>
 					</View>
-				</View>
 
-				<View>
-					{is_ready_to_harvest ? (
-						<CardButton
-							onPress={onHarvestPress}
-							bg_color={COLORS.primary}
-							icon="check"
-							label="Harvest"
-						/>
-					) : (
-						<CardButton
-							onPress={onRemovePress}
-							bg_color={COLORS.danger}
-							icon="xmark"
-							label="Remove"
-						/>
-					)}
+					<Progress.Bar
+						progress={progress}
+						width={null}
+						color={
+							progress < 0.33
+								? COLORS.progress.low
+								: progress < 1
+								? COLORS.progress.medium
+								: COLORS.primary
+						}
+						unfilledColor={COLORS.light[200]}
+						borderWidth={0}
+						borderRadius={14}
+						height={14}
+					/>
+				</Card>
+			</Link.Trigger>
 
-					{is_ready_to_harvest && (
-						<CardProfit
-							profit={item.profit}
-							show_header={false}
-							style={{ marginTop: 7 }}
-						/>
-					)}
-				</View>
-			</View>
-
-			<Progress.Bar
-				progress={progress}
-				width={null}
-				color={
-					progress < 0.33
-						? COLORS.progress.low
-						: progress < 1
-						? COLORS.progress.medium
-						: COLORS.primary
-				}
-				unfilledColor={COLORS.light[200]}
-				borderWidth={0}
-				borderRadius={14}
-				height={14}
-			/>
-		</Card>
+			<Link.Menu>
+				{is_ready_to_harvest ? (
+					<Link.MenuAction
+						title="Harvest"
+						icon="checkmark.circle"
+						destructive={false}
+						onPress={onHarvestPress}
+					/>
+				) : (
+					<Link.MenuAction
+						title="Remove"
+						icon="xmark.circle"
+						destructive
+						onPress={onRemovePress}
+					/>
+				)}
+			</Link.Menu>
+		</Link>
 	);
 };
 
