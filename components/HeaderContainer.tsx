@@ -22,7 +22,7 @@ const HeaderContainer = () => {
 
 	return (
 		<View
-			className="absolute bg-primary h-[195px] left-0 right-0 px-5 rounded-b-[25px]"
+			className="absolute bg-primary left-0 right-0 px-5 rounded-b-[25px] pb-5"
 			style={{ paddingTop: insets.top }}>
 			<View className="flex-row justify-between items-center">
 				<Text className="text-xl text-white font-light">
@@ -38,7 +38,7 @@ const HeaderContainer = () => {
 				</TouchableOpacity>
 			</View>
 
-			<View className="flex-row justify-between items-center mt-6">
+			<View className="flex-row justify-between items-end mt-6">
 				<View>
 					<Text className="text-xl text-white font-light">
 						Earnings
