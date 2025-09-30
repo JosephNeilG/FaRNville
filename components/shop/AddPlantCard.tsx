@@ -15,7 +15,7 @@ const AddPlantCard = ({ onPress }: AddPlantCardProps) => {
 			className="h-[110px] rounded-xl mt-4 border-2 border-dashed border-dark-300 items-center justify-center">
 			<FontAwesome6 name="leaf" size={22} color={COLORS.primary} />
 			<Text className="text-dark-300 text-xl font-regular mt-1">
-				Add a Plant
+				Plant a Seed
 			</Text>
 		</TouchableOpacity>
 	);
