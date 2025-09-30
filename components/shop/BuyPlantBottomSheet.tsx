@@ -25,7 +25,7 @@ const BuyPlantBottomSheet = forwardRef<
 	BottomSheetModal,
 	BuyPlantBottomSheetProps
 >(({ plant, quantity, onQuantityChange, onBuyPress }, ref) => {
-	const earnings = useGameStore((state) => state.earnings);
+	const balance = useGameStore((state) => state.balance);
 
 	const snap_points = useMemo(() => ["40%"], []);
 
@@ -45,7 +45,7 @@ const BuyPlantBottomSheet = forwardRef<
 	}, []);
 
 	const total_cost = (plant?.price ?? 0) * quantity;
-	const is_plant_now_btn_disabled = total_cost > earnings || total_cost === 0;
+	const is_plant_now_btn_disabled = total_cost > balance || total_cost === 0;
 
 	return (
 		<BottomSheetModal

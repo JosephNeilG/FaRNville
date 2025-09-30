@@ -8,11 +8,11 @@ const HeaderContainer = () => {
 	const insets = useSafeAreaInsets();
 	const resetGameStore = useGameStore((state) => state.reset);
 
-	const { earnings, expenses, profit } = useGameStore(
+	const { balance, expenses, revenue } = useGameStore(
 		useShallow((state) => ({
-			earnings: state.earnings,
+			balance: state.balance,
 			expenses: state.expenses,
-			profit: state.profit,
+			revenue: state.revenue,
 		}))
 	);
 
@@ -41,18 +41,18 @@ const HeaderContainer = () => {
 			<View className="flex-row justify-between items-end mt-6">
 				<View>
 					<Text className="text-xl text-white font-light">
-						Earnings
+						Balance
 					</Text>
 					<Text className="text-3xl text-white font-medium mt-1">
-						${earnings.toFixed(2)}
+						${balance.toFixed(2)}
 					</Text>
 				</View>
 
 				<View className="flex-row gap-[35px] border border-dark-200 rounded-xl px-4 py-2 bg-[#19734E] items-center">
 					<View>
-						<Text className={title_style}>Profit</Text>
+						<Text className={title_style}>Revenue</Text>
 						<Text className={subtitle_style}>
-							${profit.toFixed(2)}
+							${revenue.toFixed(2)}
 						</Text>
 					</View>
 

@@ -4,9 +4,9 @@ import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface GameState {
-	earnings: number;
+	balance: number;
 	expenses: number;
-	profit: number;
+	revenue: number;
 
 	seeds: SeedItemType[];
 	farmed_plants: SeedItemType[];
@@ -28,9 +28,9 @@ interface GameActions {
 type GameStore = GameState & GameActions;
 
 const initial_state: GameState = {
-	earnings: 10,
+	balance: 10,
 	expenses: 0,
-	profit: 0,
+	revenue: 0,
 
 	seeds: [],
 	farmed_plants: [],
@@ -48,7 +48,7 @@ export const useGameStore = create<GameStore>()(
 
 				const total_cost = plant.price * quantity;
 
-				const new_earnings = get().earnings - total_cost;
+				const new_balance = get().balance - total_cost;
 				const new_expenses = get().expenses + total_cost;
 
 				if (existing_index >= 0) {
@@ -61,7 +61,7 @@ export const useGameStore = create<GameStore>()(
 					};
 					set({
 						seeds: updated_seeds,
-						earnings: new_earnings,
+						balance: new_balance,
 						expenses: new_expenses,
 					});
 				} else {
@@ -71,7 +71,7 @@ export const useGameStore = create<GameStore>()(
 							{ ...plant, pcs_remaining: quantity },
 						],
 						expenses: new_expenses,
-						earnings: new_earnings,
+						balance: new_balance,
 					});
 				}
 			},
@@ -128,18 +128,16 @@ export const useGameStore = create<GameStore>()(
 
 				if (!plant_to_harvest) return;
 
-				const new_earnings = get().earnings + plant_to_harvest.profit;
-				const new_expenses = get().expenses;
-				const new_profit = new_earnings - new_expenses;
+				const new_balance = get().balance + plant_to_harvest.profit;
+				const new_revenue = get().revenue + plant_to_harvest.profit;
 
 				const updated_farmed_plants = farmed_plants.filter(
 					(plant) => plant.farm_plant_id !== farm_plant_id
 				);
 
 				set({
-					earnings: new_earnings,
-					expenses: new_expenses,
-					profit: new_profit,
+					balance: new_balance,
+					revenue: new_revenue,
 					farmed_plants: updated_farmed_plants,
 				});
 			},
@@ -152,9 +150,9 @@ export const useGameStore = create<GameStore>()(
 			name: "game-storage",
 			storage: createJSONStorage(() => AsyncStorage),
 			partialize: (state) => ({
-				earnings: state.earnings,
+				balance: state.balance,
 				expenses: state.expenses,
-				profit: state.profit,
+				revenue: state.revenue,
 				seeds: state.seeds,
 				farmed_plants: state.farmed_plants,
 			}),
