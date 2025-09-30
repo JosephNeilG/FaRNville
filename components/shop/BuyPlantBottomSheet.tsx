@@ -44,9 +44,7 @@ const BuyPlantBottomSheet = forwardRef<
 		(ref as RefObject<BottomSheetModal>)?.current?.dismiss();
 	}, []);
 
-	if (!plant) return;
-
-	const total_cost = plant.price * quantity;
+	const total_cost = (plant?.price ?? 0) * quantity;
 	const is_plant_now_btn_disabled = total_cost > earnings || total_cost === 0;
 
 	return (
@@ -58,7 +56,7 @@ const BuyPlantBottomSheet = forwardRef<
 			<BottomSheetView className="flex-1 px-5 pb-6">
 				<View className="items-center">
 					<IconBox icon_name="basket-shopping" />
-					<SectionTitle title_text={plant.name} />
+					<SectionTitle title_text={plant?.name ?? ""} />
 				</View>
 
 				<View className="flex-row mt-4 items-center justify-between">
