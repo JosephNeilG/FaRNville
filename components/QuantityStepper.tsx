@@ -8,11 +8,15 @@ import { COLORS } from "@/constants/Colors";
 interface QuantityStepperProps {
 	quantity: number;
 	onQuantityChange?: (value: number) => void;
+	is_decrement_disabled?: boolean;
+	is_increment_disabled?: boolean;
 }
 
 const QuantityStepper = ({
 	quantity,
 	onQuantityChange,
+	is_decrement_disabled,
+	is_increment_disabled,
 }: QuantityStepperProps) => {
 	if (!onQuantityChange) return;
 
@@ -34,7 +38,8 @@ const QuantityStepper = ({
 		<View className="flex-row gap-1 items-center">
 			<TouchableOpacity
 				onPress={handleDecrement}
-				className="border border-light-300 h-[23px] w-[23px] items-center justify-center rounded-md">
+				disabled={is_decrement_disabled}
+				className={`border h-[23px] w-[23px] items-center justify-center rounded-md border-dark-100 ${is_decrement_disabled ? "opacity-50" : "border-dark-100"}`}>
 				<FontAwesome6 name="minus" size={12} color={COLORS.dark[400]} />
 			</TouchableOpacity>
 
@@ -47,7 +52,10 @@ const QuantityStepper = ({
 
 			<TouchableOpacity
 				onPress={handleIncrement}
-				className="border border-primary h-[23px] w-[23px] items-center justify-center rounded-md">
+				disabled={is_increment_disabled}
+				className={`border h-[23px] w-[23px] items-center justify-center rounded-md border-primary ${
+					is_increment_disabled ? "opacity-50" : "border-primary"
+				}`}>
 				<FontAwesome6 name="plus" size={12} color={COLORS.primary} />
 			</TouchableOpacity>
 		</View>
