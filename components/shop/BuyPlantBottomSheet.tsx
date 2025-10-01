@@ -45,7 +45,12 @@ const BuyPlantBottomSheet = forwardRef<
 	}, []);
 
 	const total_cost = (plant?.price ?? 0) * quantity;
-	const is_plant_now_btn_disabled = total_cost > balance || total_cost === 0;
+
+	const is_decrement_disabled = quantity <= 1;
+	const next_cost = plant?.price! * (quantity + 1);
+	const is_increment_disabled = next_cost > balance;
+
+	const is_buy_btn_disabled = total_cost > balance || total_cost === 0;
 
 	return (
 		<BottomSheetModal
@@ -62,8 +67,10 @@ const BuyPlantBottomSheet = forwardRef<
 				<View className="flex-row mt-4 items-center justify-between">
 					<Text className="text-lg">Quantity</Text>
 					<QuantityStepper
-						quantity={quantity}
 						onQuantityChange={onQuantityChange}
+						is_decrement_disabled={is_decrement_disabled}
+						is_increment_disabled={is_increment_disabled}
+						quantity={quantity}
 					/>
 				</View>
 
@@ -77,11 +84,9 @@ const BuyPlantBottomSheet = forwardRef<
 				<CustomButton
 					onPress={onBuyPress}
 					button_text="Buy Now"
-					disabled={is_plant_now_btn_disabled}
+					disabled={is_buy_btn_disabled}
 					bg_color={
-						is_plant_now_btn_disabled
-							? COLORS.dark[100]
-							: COLORS.primary
+						is_buy_btn_disabled ? COLORS.dark[100] : COLORS.primary
 					}
 				/>
 
