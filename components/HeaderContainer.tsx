@@ -22,7 +22,7 @@ const HeaderContainer = () => {
 
 	return (
 		<View
-			className="absolute bg-primary left-0 right-0 px-5 rounded-b-[25px] pb-5"
+			className="bg-primary left-0 right-0 px-5 rounded-b-[25px] pb-5 mb-4"
 			style={{ paddingTop: insets.top }}>
 			<View className="flex-row justify-between items-center">
 				<Text className="text-xl text-white font-light">

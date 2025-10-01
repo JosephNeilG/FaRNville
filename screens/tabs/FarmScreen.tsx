@@ -90,9 +90,7 @@ const FarmScreen = () => {
 	}, []);
 
 	return (
-		<Screen>
-			<HeaderContainer />
-
+		<Screen header={<HeaderContainer />}>
 			<SectionTitle title_text="Farm Status" />
 
 			{loading ? (
@@ -130,7 +128,7 @@ const FarmScreen = () => {
 						harvested_plant
 							? `You earned $${harvested_plant.profit.toFixed(
 									2
-							  )} by harvesting ${harvested_plant.name}.`
+								)} by harvesting ${harvested_plant.name}.`
 							: ""
 					}
 				/>

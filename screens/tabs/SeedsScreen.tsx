@@ -39,9 +39,7 @@ const SeedsScreen = () => {
 	}, []);
 
 	return (
-		<Screen>
-			<HeaderContainer />
-
+		<Screen header={<HeaderContainer />}>
 			<SectionTitle title_text={`Available Seeds (${seeds_count})`} />
 
 			{loading ? (

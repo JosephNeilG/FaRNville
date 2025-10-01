@@ -77,9 +77,7 @@ const ShopScreen = () => {
 	const total_cost = (selected_plant?.price! * selected_quantity).toFixed(2);
 
 	return (
-		<Screen>
-			<HeaderContainer />
-
+		<Screen header={<HeaderContainer />}>
 			<SectionTitle title_text="Shop Seeds" />
 
 			{loading ? (
