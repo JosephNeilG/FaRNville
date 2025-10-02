@@ -5,7 +5,7 @@ export const SEED_ITEMS: SeedItemType[] = [
 		id: 1,
 		name: "Carrot",
 		price: 3,
-		harvest_duration: 300,
+		harvest_duration: 5,
 		profit: 5.0,
 		image: require("@/assets/images/products/carrot.png"),
 	},

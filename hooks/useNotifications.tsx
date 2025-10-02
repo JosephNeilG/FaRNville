@@ -2,11 +2,12 @@ import { useGameStore } from "@/store/gameStore";
 import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
 import React, { createContext, ReactNode, useContext, useEffect } from "react";
+import { Platform } from "react-native";
 
 interface NotificationsContextType {
 	scheduleNotificationAsync: (
 		request: Notifications.NotificationRequestInput
-	) => Promise<string>;
+	) => Promise<string | undefined>;
 	cancelNotificationAsync: (id: string) => Promise<void>;
 }
 
@@ -18,11 +19,18 @@ const NotificationsContext = createContext<
 	NotificationsContextType | undefined
 >(undefined);
 
+const is_web = Platform.OS === "web";
+
 const NotificationsProvider = ({ children }: NotificationProviderProps) => {
 	const router = useRouter();
 
 	useEffect(() => {
 		const configureNotificationsAsync = async () => {
+			if (is_web) {
+				console.log("Notification not supported on web.");
+				return;
+			}
+
 			const { granted } = await Notifications.requestPermissionsAsync();
 			if (!granted) {
 				return console.warn("Notification Permission not granted.");
@@ -78,10 +86,19 @@ const NotificationsProvider = ({ children }: NotificationProviderProps) => {
 	const scheduleNotificationAsync = async (
 		request: Notifications.NotificationRequestInput
 	) => {
+		if (is_web) {
+			console.log("Schedule notification not supported on web.");
+			return;
+		}
 		return await Notifications.scheduleNotificationAsync(request);
 	};
 
 	const cancelNotificationAsync = async (id: string) => {
+		if (is_web) {
+			console.log("Cancel notificatio not supported on web.");
+			return;
+		}
+
 		try {
 			console.log("Cancelling notification: ", id);
 			await Notifications.cancelScheduledNotificationAsync(id);

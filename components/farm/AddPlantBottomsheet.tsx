@@ -108,7 +108,7 @@ const AddPlantBottomSheet = forwardRef<
 					.getState()
 					.plantSeed(
 						selected_seed_card,
-						notification_id,
+						notification_id!,
 						farm_plant_id
 					);
 
