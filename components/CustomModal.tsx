@@ -5,6 +5,7 @@ import {
 	Platform,
 	Pressable,
 	View,
+	useWindowDimensions,
 } from "react-native";
 
 interface CustomModalProps {
@@ -14,6 +15,11 @@ interface CustomModalProps {
 }
 
 const CustomModal = ({ is_open, onClose, children }: CustomModalProps) => {
+	const { width } = useWindowDimensions();
+
+	const modal_width =
+		Platform.OS === "web" ? Math.min(width * 0.9, 600) : "90%";
+
 	const handleBackdropPress = (event: GestureResponderEvent) => {
 		if (event.target === event.currentTarget) onClose();
 	};
@@ -25,7 +31,7 @@ const CustomModal = ({ is_open, onClose, children }: CustomModalProps) => {
 				className="flex-1 justify-center items-center bg-[rgba(0,0,0,0.5)]">
 				<View
 					className="bg-light-100 p-5 rounded-xl items-center"
-					style={{ width: Platform.OS === "web" ? 400 : "90%" }}>
+					style={{ width: modal_width }}>
 					{children}
 				</View>
 			</Pressable>
