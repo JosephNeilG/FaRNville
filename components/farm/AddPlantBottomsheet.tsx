@@ -21,6 +21,7 @@ import { useGameStore } from "@/store/gameStore";
 import { bottom_sheet_styles } from "@/stylesheets/components/bottomsheet.stylesheet";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
+import ListContainer from "../ListContainer";
 import QuantityStepper from "../QuantityStepper";
 import SectionTitle from "../SectionTitle";
 import EmptySeedsList from "../seeds/EmptySeedsList";
@@ -137,53 +138,55 @@ const AddPlantBottomSheet = forwardRef<
 			ref={ref}
 			snapPoints={snap_points}
 			backgroundStyle={{ backgroundColor: COLORS.light[100] }}>
-			<BottomSheetView style={bottom_sheet_styles.container}>
-				<View className="items-center">
-					<IconBox icon_name="leaf" />
+			<ListContainer>
+				<BottomSheetView style={bottom_sheet_styles.container}>
+					<View className="items-center">
+						<IconBox icon_name="leaf" />
 
-					<SectionTitle title_text="Plant your seeds" />
-				</View>
-
-				<FlatList
-					data={seeds}
-					keyExtractor={(item) => item.id.toString()}
-					renderItem={renderSeedsCard}
-					ListEmptyComponent={renderEmptySeedsCard}
-					contentContainerStyle={{ paddingVertical: 10 }}
-				/>
-
-				{selected_seed_card && (
-					<View className="flex-row my-2 items-center justify-between">
-						<Text className="text-lg">Quantity</Text>
-						<QuantityStepper
-							onQuantityChange={handleQuantityChange}
-							quantity={selected_quantity}
-							is_decrement_disabled={is_decrement_disabled}
-							is_increment_disabled={is_increment_disabled}
-						/>
+						<SectionTitle title_text="Plant your seeds" />
 					</View>
-				)}
 
-				{seeds.length > 0 && (
-					<CustomButton
-						onPress={handleAddPlantPress}
-						button_text="Plant now"
-						disabled={is_plant_now_btn_disabled}
-						bg_color={
-							is_plant_now_btn_disabled
-								? COLORS.dark[100]
-								: COLORS.primary
-						}
+					<FlatList
+						data={seeds}
+						keyExtractor={(item) => item.id.toString()}
+						renderItem={renderSeedsCard}
+						ListEmptyComponent={renderEmptySeedsCard}
+						contentContainerStyle={{ paddingVertical: 10 }}
 					/>
-				)}
 
-				<CustomButton
-					onPress={handleDismiss}
-					button_text="Cancel"
-					bordered
-					font_color={COLORS.white}
-				/>
-			</BottomSheetView>
+					{selected_seed_card && (
+						<View className="flex-row my-2 items-center justify-between">
+							<Text className="text-lg">Quantity</Text>
+							<QuantityStepper
+								onQuantityChange={handleQuantityChange}
+								quantity={selected_quantity}
+								is_decrement_disabled={is_decrement_disabled}
+								is_increment_disabled={is_increment_disabled}
+							/>
+						</View>
+					)}
+
+					{seeds.length > 0 && (
+						<CustomButton
+							onPress={handleAddPlantPress}
+							button_text="Plant now"
+							disabled={is_plant_now_btn_disabled}
+							bg_color={
+								is_plant_now_btn_disabled
+									? COLORS.dark[100]
+									: COLORS.primary
+							}
+						/>
+					)}
+
+					<CustomButton
+						onPress={handleDismiss}
+						button_text="Cancel"
+						bordered
+						font_color={COLORS.white}
+					/>
+				</BottomSheetView>
+			</ListContainer>
 		</BottomSheetModal>
 	);
 });

@@ -7,7 +7,8 @@ interface ListContainerProps {
 const ListContainer = ({ children }: ListContainerProps) => {
 	return (
 		<View
-			className={`flex-1 self-center ${Platform.OS === "web" ? "w-[400px]" : "w-full"}`}>
+			style={{ width: Platform.OS === "web" ? 400 : "100%" }}
+			className={`flex-1 self-center`}>
 			{children}
 		</View>
 	);

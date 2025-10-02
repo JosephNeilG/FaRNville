@@ -11,6 +11,7 @@ import { SeedItemType } from "@/entities/seed.types";
 import { bottom_sheet_styles } from "@/stylesheets/components/bottomsheet.stylesheet";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
+import ListContainer from "../ListContainer";
 import SectionTitle from "../SectionTitle";
 import Subtitle from "../Subtitle";
 
@@ -46,34 +47,36 @@ const RemovePlantBottomSheet = forwardRef<
 			ref={ref}
 			snapPoints={snap_points}
 			backgroundStyle={{ backgroundColor: COLORS.light[100] }}>
-			<BottomSheetView style={bottom_sheet_styles.container}>
-				<View className="items-center">
-					<IconBox
-						icon_name="triangle-exclamation"
-						icon_color={COLORS.danger}
-						bg_color={COLORS.accent.red}
+			<ListContainer>
+				<BottomSheetView style={bottom_sheet_styles.container}>
+					<View className="items-center">
+						<IconBox
+							icon_name="triangle-exclamation"
+							icon_color={COLORS.danger}
+							bg_color={COLORS.accent.red}
+						/>
+
+						<SectionTitle title_text="Remove Plant?" />
+
+						<Subtitle
+							subtitle_text={`Are you sure you want to remove ${plant?.name}?`}
+						/>
+					</View>
+
+					<CustomButton
+						onPress={onRemovePress}
+						button_text="Yes, remove"
+						bg_color={COLORS.danger}
 					/>
 
-					<SectionTitle title_text="Remove Plant?" />
-
-					<Subtitle
-						subtitle_text={`Are you sure you want to remove ${plant?.name}?`}
+					<CustomButton
+						onPress={handleDismiss}
+						button_text="Cancel"
+						bordered
+						font_color={COLORS.white}
 					/>
-				</View>
-
-				<CustomButton
-					onPress={onRemovePress}
-					button_text="Yes, remove"
-					bg_color={COLORS.danger}
-				/>
-
-				<CustomButton
-					onPress={handleDismiss}
-					button_text="Cancel"
-					bordered
-					font_color={COLORS.white}
-				/>
-			</BottomSheetView>
+				</BottomSheetView>
+			</ListContainer>
 		</BottomSheetModal>
 	);
 });

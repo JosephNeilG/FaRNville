@@ -12,6 +12,7 @@ import { useGameStore } from "@/store/gameStore";
 import { bottom_sheet_styles } from "@/stylesheets/components/bottomsheet.stylesheet";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
+import ListContainer from "../ListContainer";
 import QuantityStepper from "../QuantityStepper";
 import SectionTitle from "../SectionTitle";
 
@@ -59,45 +60,49 @@ const BuyPlantBottomSheet = forwardRef<
 			ref={ref}
 			snapPoints={snap_points}
 			backgroundStyle={{ backgroundColor: COLORS.light[100] }}>
-			<BottomSheetView style={bottom_sheet_styles.container}>
-				<View className="items-center">
-					<IconBox icon_name="basket-shopping" />
-					<SectionTitle title_text={plant?.name ?? ""} />
-				</View>
+			<ListContainer>
+				<BottomSheetView style={bottom_sheet_styles.container}>
+					<View className="items-center">
+						<IconBox icon_name="basket-shopping" />
+						<SectionTitle title_text={plant?.name ?? ""} />
+					</View>
 
-				<View className="flex-row mt-4 items-center justify-between">
-					<Text className="text-lg">Quantity</Text>
-					<QuantityStepper
-						onQuantityChange={onQuantityChange}
-						is_decrement_disabled={is_decrement_disabled}
-						is_increment_disabled={is_increment_disabled}
-						quantity={quantity}
+					<View className="flex-row mt-4 items-center justify-between">
+						<Text className="text-lg">Quantity</Text>
+						<QuantityStepper
+							onQuantityChange={onQuantityChange}
+							is_decrement_disabled={is_decrement_disabled}
+							is_increment_disabled={is_increment_disabled}
+							quantity={quantity}
+						/>
+					</View>
+
+					<View className="flex-row mt-3 items-center justify-between">
+						<Text className="text-lg">Total Cost</Text>
+						<Text className="font-semibold text-2xl">
+							${total_cost.toFixed(2)}
+						</Text>
+					</View>
+
+					<CustomButton
+						onPress={onBuyPress}
+						button_text="Buy Now"
+						disabled={is_buy_btn_disabled}
+						bg_color={
+							is_buy_btn_disabled
+								? COLORS.dark[100]
+								: COLORS.primary
+						}
 					/>
-				</View>
 
-				<View className="flex-row mt-3 items-center justify-between">
-					<Text className="text-lg">Total Cost</Text>
-					<Text className="font-semibold text-2xl">
-						${total_cost.toFixed(2)}
-					</Text>
-				</View>
-
-				<CustomButton
-					onPress={onBuyPress}
-					button_text="Buy Now"
-					disabled={is_buy_btn_disabled}
-					bg_color={
-						is_buy_btn_disabled ? COLORS.dark[100] : COLORS.primary
-					}
-				/>
-
-				<CustomButton
-					onPress={handleDismiss}
-					button_text="Cancel"
-					bordered
-					font_color={COLORS.white}
-				/>
-			</BottomSheetView>
+					<CustomButton
+						onPress={handleDismiss}
+						button_text="Cancel"
+						bordered
+						font_color={COLORS.white}
+					/>
+				</BottomSheetView>
+			</ListContainer>
 		</BottomSheetModal>
 	);
 });
