@@ -43,14 +43,19 @@
     ],
     "experiments": {
       "typedRoutes": true,
-      "reactCompiler": true,
-      "baseUrl": "/FaRNville"
+      "reactCompiler": true
     },
     "extra": {
       "router": {},
       "eas": {
         "projectId": "732814f2-b860-43d3-b1a9-4a10e9a83661"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/732814f2-b860-43d3-b1a9-4a10e9a83661"
     }
   }
 }
