@@ -15,7 +15,7 @@ const ListContainer = ({ children }: { children: React.ReactNode }) => {
 		if (width > 0) {
 			container_width = Math.min(width * 0.9, 600);
 		} else {
-			container_width = 600;
+			container_width = "100%";
 		}
 	}
 
