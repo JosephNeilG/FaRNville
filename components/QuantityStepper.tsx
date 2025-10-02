@@ -1,7 +1,7 @@
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { Platform, TextInput, TouchableOpacity, View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 
@@ -43,13 +43,23 @@ const QuantityStepper = ({
 				<FontAwesome6 name="minus" size={12} color={COLORS.dark[400]} />
 			</TouchableOpacity>
 
-			<BottomSheetTextInput
-				onChangeText={handleChange}
-				value={String(quantity)}
-				keyboardType="numeric"
-				className="font-semibold"
-				style={{ width: 30, textAlign: "center" }}
-			/>
+			{Platform.OS === "web" ? (
+				<TextInput
+					onChangeText={handleChange}
+					value={String(quantity)}
+					keyboardType="numeric"
+					className="font-semibold"
+					style={{ width: 30, textAlign: "center" }}
+				/>
+			) : (
+				<BottomSheetTextInput
+					onChangeText={handleChange}
+					value={String(quantity)}
+					keyboardType="numeric"
+					className="font-semibold"
+					style={{ width: 30, textAlign: "center" }}
+				/>
+			)}
 
 			<TouchableOpacity
 				onPress={handleIncrement}
