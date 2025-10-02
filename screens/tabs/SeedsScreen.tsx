@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 
 import HeaderContainer from "@/components/HeaderContainer";
+import ListContainer from "@/components/ListContainer";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import EmptySeedsList from "@/components/seeds/EmptySeedsList";
@@ -43,19 +44,21 @@ const SeedsScreen = () => {
 
 	return (
 		<Screen header={<HeaderContainer />}>
-			<SectionTitle title_text={`Available Seeds (${seeds_count})`} />
+			<ListContainer>
+				<SectionTitle title_text={`Available Seeds (${seeds_count})`} />
 
-			{loading ? (
-				renderShimmer()
-			) : (
-				<FlatList
-					data={seeds}
-					keyExtractor={(item) => item.id.toString()}
-					renderItem={renderSeedsCard}
-					ListEmptyComponent={renderEmptySeedsCard}
-					contentContainerStyle={{ paddingBottom: 60, flex: 1 }}
-				/>
-			)}
+				{loading ? (
+					renderShimmer()
+				) : (
+					<FlatList
+						data={seeds}
+						keyExtractor={(item) => item.id.toString()}
+						renderItem={renderSeedsCard}
+						ListEmptyComponent={renderEmptySeedsCard}
+						contentContainerStyle={{ paddingBottom: 60, flex: 1 }}
+					/>
+				)}
+			</ListContainer>
 		</Screen>
 	);
 };

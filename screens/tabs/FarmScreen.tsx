@@ -9,6 +9,7 @@ import FarmCard from "@/components/farm/FarmCard";
 import RemovePlantBottomSheet from "@/components/farm/RemovePlantBottomsheet";
 import HeaderContainer from "@/components/HeaderContainer";
 import IconBox from "@/components/IconBox";
+import ListContainer from "@/components/ListContainer";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import FarmCardShimmer from "@/components/shimmers/FarmCardShimmer";
@@ -94,19 +95,21 @@ const FarmScreen = () => {
 
 	return (
 		<Screen header={<HeaderContainer />}>
-			<SectionTitle title_text="Farm Status" />
+			<ListContainer>
+				<SectionTitle title_text="Farm Status" />
 
-			{loading ? (
-				renderShimmer()
-			) : (
-				<FlatList
-					data={farmed_plants}
-					keyExtractor={(item) => item.farm_plant_id!.toString()}
-					renderItem={renderFarmCards}
-					ListFooterComponent={renderFooterComponent}
-					contentContainerStyle={{ paddingBottom: 60 }}
-				/>
-			)}
+				{loading ? (
+					renderShimmer()
+				) : (
+					<FlatList
+						data={farmed_plants}
+						keyExtractor={(item) => item.farm_plant_id!.toString()}
+						renderItem={renderFarmCards}
+						ListFooterComponent={renderFooterComponent}
+						contentContainerStyle={{ paddingBottom: 100 }}
+					/>
+				)}
+			</ListContainer>
 
 			<RemovePlantBottomSheet
 				onRemovePress={handleRemovePress}

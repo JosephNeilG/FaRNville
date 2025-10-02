@@ -7,6 +7,7 @@ import CustomButton from "@/components/CustomButton";
 import CustomModal from "@/components/CustomModal";
 import HeaderContainer from "@/components/HeaderContainer";
 import IconBox from "@/components/IconBox";
+import ListContainer from "@/components/ListContainer";
 import Screen from "@/components/Screen";
 import SectionTitle from "@/components/SectionTitle";
 import SeedsShimmer from "@/components/shimmers/SeedsShimmer";
@@ -81,18 +82,20 @@ const ShopScreen = () => {
 
 	return (
 		<Screen header={<HeaderContainer />}>
-			<SectionTitle title_text="Shop Seeds" />
+			<ListContainer>
+				<SectionTitle title_text="Shop Seeds" />
 
-			{loading ? (
-				renderShimmer()
-			) : (
-				<FlatList
-					data={SEED_ITEMS}
-					keyExtractor={(item) => item.id.toString()}
-					renderItem={renderShopCards}
-					contentContainerStyle={{ flex: 1 }}
-				/>
-			)}
+				{loading ? (
+					renderShimmer()
+				) : (
+					<FlatList
+						data={SEED_ITEMS}
+						keyExtractor={(item) => item.id.toString()}
+						renderItem={renderShopCards}
+						contentContainerStyle={{ paddingBottom: 100 }}
+					/>
+				)}
+			</ListContainer>
 
 			<BuyPlantBottomSheet
 				onBuyPress={handleBuyPress}
