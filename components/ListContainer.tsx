@@ -1,14 +1,19 @@
-import React, { ReactNode } from "react";
-import { Platform, View } from "react-native";
+import React from "react";
+import { Platform, View, useWindowDimensions } from "react-native";
 
-interface ListContainerProps {
-	children: ReactNode;
-}
-const ListContainer = ({ children }: ListContainerProps) => {
+const ListContainer = ({ children }: { children: React.ReactNode }) => {
+	const { width } = useWindowDimensions();
+
+	const container_width =
+		Platform.OS === "web" ? Math.min(width * 0.9, 600) : "100%";
+
 	return (
 		<View
-			style={{ width: Platform.OS === "web" ? 400 : "100%" }}
-			className={`flex-1 self-center`}>
+			style={{
+				width: container_width,
+				alignSelf: "center",
+				flex: 1,
+			}}>
 			{children}
 		</View>
 	);
