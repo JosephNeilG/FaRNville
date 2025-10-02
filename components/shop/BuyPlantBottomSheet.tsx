@@ -29,7 +29,7 @@ const BuyPlantBottomSheet = forwardRef<
 >(({ plant, quantity, onQuantityChange, onBuyPress }, ref) => {
 	const balance = useGameStore((state) => state.balance);
 
-	const snap_points = useMemo(() => ["40%"], []);
+	const snap_points = useMemo(() => ["45%"], []);
 
 	const renderBackdrop = useCallback(
 		(props: any) => (

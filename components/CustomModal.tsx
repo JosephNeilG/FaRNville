@@ -1,5 +1,11 @@
 import React, { ReactNode } from "react";
-import { GestureResponderEvent, Modal, Pressable, View } from "react-native";
+import {
+	GestureResponderEvent,
+	Modal,
+	Platform,
+	Pressable,
+	View,
+} from "react-native";
 
 interface CustomModalProps {
 	is_open: boolean;
@@ -17,7 +23,9 @@ const CustomModal = ({ is_open, onClose, children }: CustomModalProps) => {
 			<Pressable
 				onPress={handleBackdropPress}
 				className="flex-1 justify-center items-center bg-[rgba(0,0,0,0.5)]">
-				<View className="bg-light-100 p-5 rounded-xl w-[90%] items-center">
+				<View
+					className="bg-light-100 p-5 rounded-xl items-center"
+					style={{ width: Platform.OS === "web" ? 400 : "90%" }}>
 					{children}
 				</View>
 			</Pressable>
