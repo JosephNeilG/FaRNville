@@ -96,18 +96,22 @@ const FarmScreen = () => {
 	return (
 		<Screen header={<HeaderContainer />}>
 			<ListContainer>
-				<SectionTitle title_text="Farm Status" />
-
 				{loading ? (
 					renderShimmer()
 				) : (
-					<FlatList
-						data={farmed_plants}
-						keyExtractor={(item) => item.farm_plant_id!.toString()}
-						renderItem={renderFarmCards}
-						ListFooterComponent={renderFooterComponent}
-						contentContainerStyle={{ paddingBottom: 100 }}
-					/>
+					<>
+						<SectionTitle title_text="Farm Status" />
+
+						<FlatList
+							data={farmed_plants}
+							keyExtractor={(item) =>
+								item.farm_plant_id!.toString()
+							}
+							renderItem={renderFarmCards}
+							ListFooterComponent={renderFooterComponent}
+							contentContainerStyle={{ paddingBottom: 100 }}
+						/>
+					</>
 				)}
 			</ListContainer>
 

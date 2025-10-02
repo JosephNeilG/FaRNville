@@ -12,7 +12,6 @@ const ListContainer = ({ children }: { children: React.ReactNode }) => {
 			style={{
 				width: container_width,
 				alignSelf: "center",
-				flex: 1,
 			}}>
 			{children}
 		</View>
