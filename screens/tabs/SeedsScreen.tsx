@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ListRenderItem, View } from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 
 import HeaderContainer from "@/components/HeaderContainer";
 import Screen from "@/components/Screen";
@@ -25,6 +25,9 @@ const SeedsScreen = () => {
 		router.replace("/(tabs)/shop");
 	};
 
+	const renderShimmer = () =>
+		SHIMMERS.map((index) => <SeedsShimmer key={index} />);
+
 	const renderEmptySeedsCard = () => (
 		<EmptySeedsList onPress={handleEmptyBtnPress} />
 	);
@@ -43,11 +46,7 @@ const SeedsScreen = () => {
 			<SectionTitle title_text={`Available Seeds (${seeds_count})`} />
 
 			{loading ? (
-				<View>
-					{SHIMMERS.map((index) => (
-						<SeedsShimmer key={index} />
-					))}
-				</View>
+				renderShimmer()
 			) : (
 				<FlatList
 					data={seeds}

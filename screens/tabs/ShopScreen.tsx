@@ -1,7 +1,7 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import pluralize from "pluralize";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FlatList, ListRenderItem, View } from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 
 import CustomButton from "@/components/CustomButton";
 import CustomModal from "@/components/CustomModal";
@@ -58,6 +58,9 @@ const ShopScreen = () => {
 	const handleSuccessModalDismiss = () => setOpenSuccessModal(false);
 	const handleGotItBtnPress = () => setOpenSuccessModal(false);
 
+	const renderShimmer = () =>
+		SHIMMERS.map((index) => <SeedsShimmer key={index} />);
+
 	const renderShopCards: ListRenderItem<SeedItemType> = ({ item }) => (
 		<ShopCard
 			onPress={() => handlePresentBuyModalPress(item)}
@@ -81,11 +84,7 @@ const ShopScreen = () => {
 			<SectionTitle title_text="Shop Seeds" />
 
 			{loading ? (
-				<View>
-					{SHIMMERS.map((index) => (
-						<SeedsShimmer key={index} />
-					))}
-				</View>
+				renderShimmer()
 			) : (
 				<FlatList
 					data={SEED_ITEMS}

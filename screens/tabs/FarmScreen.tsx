@@ -1,6 +1,6 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FlatList, ListRenderItem, View } from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 
 import CustomButton from "@/components/CustomButton";
 import CustomModal from "@/components/CustomModal";
@@ -72,6 +72,9 @@ const FarmScreen = () => {
 		setOpenCompleteModal(false);
 	};
 
+	const renderShimmer = () =>
+		SHIMMERS.map((index) => <FarmCardShimmer key={index} />);
+
 	const renderFarmCards: ListRenderItem<SeedItemType> = ({ item }) => (
 		<FarmCard
 			onRemovePress={() => handlePresentRemoveModalPress(item)}
@@ -94,11 +97,7 @@ const FarmScreen = () => {
 			<SectionTitle title_text="Farm Status" />
 
 			{loading ? (
-				<View>
-					{SHIMMERS.map((index) => (
-						<FarmCardShimmer key={index} />
-					))}
-				</View>
+				renderShimmer()
 			) : (
 				<FlatList
 					data={farmed_plants}

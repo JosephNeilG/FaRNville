@@ -8,6 +8,7 @@ const SeedsShimmer = () => (
 		width="100%"
 		height={115}
 		viewBox="0 0 400 115"
+		preserveAspectRatio="none"
 		backgroundColor={COLORS.light[300]}
 		foregroundColor={COLORS.light[100]}>
 		<Rect y="12" rx="12" ry="12" width="90" height="90" />

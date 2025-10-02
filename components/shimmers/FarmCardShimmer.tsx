@@ -8,6 +8,7 @@ const FarmCardShimmer = () => (
 		width="100%"
 		height={130}
 		viewBox="0 0 400 130"
+		preserveAspectRatio="none"
 		backgroundColor={COLORS.light[300]}
 		foregroundColor={COLORS.light[100]}>
 		<Rect y="15" rx="10" ry="10" width="70" height="70" />
