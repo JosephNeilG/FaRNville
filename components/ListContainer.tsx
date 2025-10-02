@@ -1,17 +1,30 @@
 import React from "react";
-import { Platform, View, useWindowDimensions } from "react-native";
+import {
+	DimensionValue,
+	Platform,
+	View,
+	useWindowDimensions,
+} from "react-native";
 
 const ListContainer = ({ children }: { children: React.ReactNode }) => {
 	const { width } = useWindowDimensions();
 
-	const container_width =
-		Platform.OS === "web" ? Math.min(width * 0.9, 600) : "100%";
+	let container_width: DimensionValue = "100%";
+
+	if (Platform.OS === "web") {
+		if (width > 0) {
+			container_width = Math.min(width * 0.9, 600);
+		} else {
+			container_width = 600;
+		}
+	}
 
 	return (
 		<View
 			style={{
 				width: container_width,
 				alignSelf: "center",
+				flex: 1,
 			}}>
 			{children}
 		</View>

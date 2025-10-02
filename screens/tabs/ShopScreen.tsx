@@ -83,19 +83,17 @@ const ShopScreen = () => {
 	return (
 		<Screen header={<HeaderContainer />}>
 			<ListContainer>
+				<SectionTitle title_text="Shop Seeds" />
+
 				{loading ? (
 					renderShimmer()
 				) : (
-					<>
-						<SectionTitle title_text="Shop Seeds" />
-
-						<FlatList
-							data={SEED_ITEMS}
-							keyExtractor={(item) => item.id.toString()}
-							renderItem={renderShopCards}
-							contentContainerStyle={{ paddingBottom: 100 }}
-						/>
-					</>
+					<FlatList
+						data={SEED_ITEMS}
+						keyExtractor={(item) => item.id.toString()}
+						renderItem={renderShopCards}
+						contentContainerStyle={{ paddingBottom: 100 }}
+					/>
 				)}
 			</ListContainer>
 

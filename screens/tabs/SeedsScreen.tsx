@@ -45,25 +45,20 @@ const SeedsScreen = () => {
 	return (
 		<Screen header={<HeaderContainer />}>
 			<ListContainer>
+				<SectionTitle title_text={`Available Seeds (${seeds_count})`} />
 				{loading ? (
 					renderShimmer()
 				) : (
-					<>
-						<SectionTitle
-							title_text={`Available Seeds (${seeds_count})`}
-						/>
-
-						<FlatList
-							data={seeds}
-							keyExtractor={(item) => item.id.toString()}
-							renderItem={renderSeedsCard}
-							ListEmptyComponent={renderEmptySeedsCard}
-							contentContainerStyle={{
-								paddingBottom: 60,
-								flex: 1,
-							}}
-						/>
-					</>
+					<FlatList
+						data={seeds}
+						keyExtractor={(item) => item.id.toString()}
+						renderItem={renderSeedsCard}
+						ListEmptyComponent={renderEmptySeedsCard}
+						contentContainerStyle={{
+							paddingBottom: 60,
+							flex: 1,
+						}}
+					/>
 				)}
 			</ListContainer>
 		</Screen>
