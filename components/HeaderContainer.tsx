@@ -1,6 +1,6 @@
 import { useGameStore } from "@/store/gameStore";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Platform, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useShallow } from "zustand/shallow";
 
@@ -22,9 +22,10 @@ const HeaderContainer = () => {
 
 	return (
 		<View
-			className="bg-primary left-0 right-0 px-5 rounded-b-[25px] pb-5 mb-4"
+			className={`bg-primary px-5 rounded-b-[25px] pb-5 mb-4 `}
 			style={{ paddingTop: insets.top }}>
-			<View className="flex-row justify-between items-center">
+			<View
+				className={`flex-row justify-between items-center ${Platform.OS === "web" && "pt-5"}`}>
 				<Text className="text-xl text-white font-light">
 					Hello, <Text className="font-medium">Joseph Neil</Text>
 				</Text>
@@ -33,7 +34,8 @@ const HeaderContainer = () => {
 					onPress={handleProfilePress}>
 					<Image
 						source={require("@/assets/images/joseph.jpg")}
-						className="w-[35px] h-[35px] rounded-full"
+						style={{ width: 35, height: 35, borderRadius: 17.5 }}
+						resizeMode="cover"
 					/>
 				</TouchableOpacity>
 			</View>

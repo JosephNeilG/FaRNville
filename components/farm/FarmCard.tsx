@@ -50,7 +50,8 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 						<View className="flex-row items-center gap-3">
 							<Image
 								source={item.image}
-								className="w-[70px] h-[70px] rounded-xl"
+								style={{ width: 70, height: 70 }}
+								className="rounded-xl"
 							/>
 
 							<View>
@@ -105,8 +106,8 @@ const FarmCard = ({ item, onRemovePress, onHarvestPress }: FarmCardProps) => {
 							progress < 0.33
 								? COLORS.progress.low
 								: progress < 1
-								? COLORS.progress.medium
-								: COLORS.primary
+									? COLORS.progress.medium
+									: COLORS.primary
 						}
 						unfilledColor={COLORS.light[200]}
 						borderWidth={0}

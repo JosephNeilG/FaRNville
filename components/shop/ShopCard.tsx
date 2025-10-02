@@ -19,7 +19,8 @@ const ShopCard = ({ item, onPress }: ShopCardProps) => {
 				<View className="flex-row items-center gap-3">
 					<Image
 						source={item.image}
-						className="w-[90px] h-[90px] rounded-xl"
+						style={{ width: 90, height: 90 }}
+						className="rounded-xl"
 					/>
 
 					<View>

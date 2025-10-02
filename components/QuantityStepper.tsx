@@ -47,7 +47,8 @@ const QuantityStepper = ({
 				onChangeText={handleChange}
 				value={String(quantity)}
 				keyboardType="numeric"
-				className="text-center w-[30px] font-semibold"
+				className="font-semibold"
+				style={{ width: 30, textAlign: "center" }}
 			/>
 
 			<TouchableOpacity

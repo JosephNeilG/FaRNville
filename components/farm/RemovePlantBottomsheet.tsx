@@ -8,6 +8,7 @@ import { View } from "react-native";
 
 import { COLORS } from "@/constants/Colors";
 import { SeedItemType } from "@/entities/seed.types";
+import { bottom_sheet_styles } from "@/stylesheets/components/bottomsheet.stylesheet";
 import CustomButton from "../CustomButton";
 import IconBox from "../IconBox";
 import SectionTitle from "../SectionTitle";
@@ -45,7 +46,7 @@ const RemovePlantBottomSheet = forwardRef<
 			ref={ref}
 			snapPoints={snap_points}
 			backgroundStyle={{ backgroundColor: COLORS.light[100] }}>
-			<BottomSheetView className="flex-1 px-5 pb-6">
+			<BottomSheetView style={bottom_sheet_styles.container}>
 				<View className="items-center">
 					<IconBox
 						icon_name="triangle-exclamation"
